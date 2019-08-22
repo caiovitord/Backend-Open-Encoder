@@ -5,13 +5,23 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class DataSource {
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("unidade_persistencia_odb");
 
-    public static EntityManager createEntityManager() {
-        return emf.createEntityManager();
-    }
+    private final EntityManager em;
 
-    public static void close() {
+    private DataSource(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("unidade_persistencia_odb");
+        em = emf.createEntityManager();
         emf.close();
     }
+
+    public static DataSource instance = new DataSource();
+
+    public static DataSource getInstance(){
+        return instance;
+    }
+
+    public EntityManager getEntityManager() {
+        return em;
+    }
+
 }
