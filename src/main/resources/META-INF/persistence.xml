@@ -5,6 +5,8 @@
         <provider>com.objectdb.jpa.Provider</provider>
 
 
+        <class>Persistence.Entities.SimpleUser</class>
+        <class>Persistence.Entities.UserVideoEncodingRequest</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url"
