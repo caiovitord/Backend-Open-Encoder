@@ -6,7 +6,7 @@
 
 
         <class>Persistence.Entities.SimpleUser</class>
-        <class>Persistence.Entities.UserVideoEncodingRequest</class>
+        <class>Persistence.Entities.VideoEncodingRequest</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url"

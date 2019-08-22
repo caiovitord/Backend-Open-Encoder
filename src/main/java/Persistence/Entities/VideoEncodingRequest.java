@@ -3,7 +3,7 @@ package Persistence.Entities;
 import javax.persistence.*;
 
 @Entity
-public class UserVideoEncodingRequest {
+public class VideoEncodingRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,11 @@ public class UserVideoEncodingRequest {
 
 
     //Constructors
-    public UserVideoEncodingRequest(SimpleUser requestingUser) {
+    public VideoEncodingRequest(SimpleUser requestingUser) {
         this.requestingUser = requestingUser;
     }
 
-    public UserVideoEncodingRequest() {
+    public VideoEncodingRequest() {
 
     }
 
