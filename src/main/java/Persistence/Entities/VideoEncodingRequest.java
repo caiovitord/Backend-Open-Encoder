@@ -1,6 +1,8 @@
 package Persistence.Entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Entity
 public class VideoEncodingRequest {
@@ -13,6 +15,10 @@ public class VideoEncodingRequest {
     @ManyToOne
     private SimpleUser requestingUser;
 
+    @NotNull
+    private long inputVideoFileId;
+
+    private long outputVideoFileId;
 
 
 
@@ -40,5 +46,19 @@ public class VideoEncodingRequest {
         return id;
     }
 
+    public long getInputVideoFileId() {
+        return inputVideoFileId;
+    }
 
+    public void setInputVideoFileId(long inputVideoFileId) {
+        this.inputVideoFileId = inputVideoFileId;
+    }
+
+    public long getOutputVideoFileId() {
+        return outputVideoFileId;
+    }
+
+    public void setOutputVideoFileId(long outputVideoFileId) {
+        this.outputVideoFileId = outputVideoFileId;
+    }
 }
