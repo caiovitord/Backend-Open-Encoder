@@ -1,0 +1,47 @@
+package Persistence.Services;
+
+import Persistence.BucketsEnum;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.PutObjectResult;
+
+import java.io.File;
+
+public class AmazonS3Service {
+
+    private static final AmazonS3Service instance = new AmazonS3Service();
+
+    private final AmazonS3 s3client;
+
+    private AmazonS3Service(){
+        AWSCredentials credentials = new BasicAWSCredentials(
+                "AKIAX4GJZQVTWUH7F76L",
+                "Gx1zqufJT48ezUbRcDzZC24OUkR+TkKsGu52lxwB"
+        );
+
+        s3client = AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(Regions.US_EAST_1)
+                .build();
+    }
+
+
+    public static AmazonS3Service getInstance(){
+        return instance;
+    }
+
+    public PutObjectResult uploadObject(BucketsEnum bucket, File file){
+        PutObjectResult result = s3client.putObject(
+                bucket.bucketName,
+                file.getName(),
+                file
+        );
+        return result;
+    }
+
+}
