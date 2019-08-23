@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 public class UserAlreadyExistsAdvice {
 
     @ResponseBody
     @ExceptionHandler(UserAlreadyExistsException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     String userAlreadyExistsHandler(UserAlreadyExistsException e) {
         return e.getMessage();
     }

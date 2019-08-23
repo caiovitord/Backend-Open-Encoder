@@ -47,8 +47,7 @@ public class UserRepository  implements JpaRepository<SimpleUser, String> {
 
     @Override
     public List<SimpleUser> findAll() {
-        //TODO
-        return null;
+        return simpleUserDAO.findAll();
     }
 
     /*
