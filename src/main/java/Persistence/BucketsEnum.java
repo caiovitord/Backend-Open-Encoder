@@ -6,7 +6,10 @@ public enum BucketsEnum {
 
     public final String bucketName;
 
+    public final String bucketHost;
+
     BucketsEnum(String bucketName) {
         this.bucketName = bucketName;
+        this.bucketHost  = bucketName + ".s3.amazonaws.com";
     }
 }

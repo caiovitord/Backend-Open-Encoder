@@ -19,10 +19,13 @@ public class AmazonS3Service {
 
     private final AmazonS3 s3client;
 
+    public static final String ACCESS_KEY = "AKIAX4GJZQVTWUH7F76L";
+    public static final String SECRET = "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";
+
     private AmazonS3Service(){
         AWSCredentials credentials = new BasicAWSCredentials(
-                "AKIAX4GJZQVTWUH7F76L",
-                "Gx1zqufJT48ezUbRcDzZC24OUkR+TkKsGu52lxwB"
+                ACCESS_KEY,
+                SECRET
         );
 
         s3client = AmazonS3ClientBuilder
@@ -43,6 +46,13 @@ public class AmazonS3Service {
                 file).withCannedAcl(CannedAccessControlList.PublicRead)
         );
         return result;
+    }
+
+    public String getFileUrl(BucketsEnum bucket, String fileName){
+        if(bucket == BucketsEnum.INPUT_BUCKET)
+            return "https://open-encoder-input.s3.amazonaws.com/" + fileName;
+        else
+            return "https://open-encoder-output.s3.amazonaws.com/" + fileName;
     }
 
 }
