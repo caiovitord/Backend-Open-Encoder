@@ -6,12 +6,10 @@ import javax.persistence.Persistence;
 
 public class DataSource {
 
-    private final EntityManager em;
+    private final EntityManagerFactory emf;
 
     private DataSource(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("unidade_persistencia_odb");
-        em = emf.createEntityManager();
-        emf.close();
+        emf = Persistence.createEntityManagerFactory("unidade_persistencia_odb");
     }
 
     public static DataSource instance = new DataSource();
@@ -21,7 +19,7 @@ public class DataSource {
     }
 
     public EntityManager getEntityManager() {
-        return em;
+        return emf.createEntityManager();
     }
 
 }
