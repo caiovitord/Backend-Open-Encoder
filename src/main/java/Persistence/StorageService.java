@@ -13,6 +13,15 @@ public class StorageService {
     private final String TEMP_FILES_FOLDER = "tmpfiles";
 
     public void store(MultipartFile file) {
+        try {
+            this.multipartFileToFile(file, Paths.get("."));
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //TODO enviar pra AWS
         //Salvar o modelo de videofile
         //Deletar localmente
