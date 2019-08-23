@@ -18,6 +18,11 @@
 
     <dependencies>
 
+            <dependency>
+                <groupId>com.bitmovin.api</groupId>
+                <artifactId>bitmovin-java</artifactId>
+                <version>1.43.0</version>
+            </dependency>
 
         <dependency>
             <groupId>com.objectdb</groupId>

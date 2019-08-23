@@ -20,6 +20,7 @@ import java.util.Date;
 public class StorageService {
 
     private final String TEMP_FILES_FOLDER = "tmpfiles";
+
     private final AmazonS3Service amazonS3Service = AmazonS3Service.getInstance();
     private final VideoFileDAO videoFileDAO = new VideoFileDAO(DataSource.getInstance().getEntityManager());
 

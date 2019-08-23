@@ -7,6 +7,8 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 
 import java.io.File;
@@ -36,10 +38,9 @@ public class AmazonS3Service {
     }
 
     public PutObjectResult uploadObject(BucketsEnum bucket, File file){
-        PutObjectResult result = s3client.putObject(
-                bucket.bucketName,
+        PutObjectResult result = s3client.putObject(new PutObjectRequest( bucket.bucketName,
                 file.getName(),
-                file
+                file).withCannedAcl(CannedAccessControlList.PublicRead)
         );
         return result;
     }

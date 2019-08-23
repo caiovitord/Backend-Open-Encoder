@@ -23,9 +23,9 @@
 hs_err_pid*
 /BackendSambatechEncoding.iml
 /.idea/
-database.odb$
-database.odb
 /tmpfiles/
 target/classes/application.properties
 target/classes/META-INF/BackendSambatechEncoding.kotlin_module
-database.odb$
+
+database_file.odb
+database_file.odb$
