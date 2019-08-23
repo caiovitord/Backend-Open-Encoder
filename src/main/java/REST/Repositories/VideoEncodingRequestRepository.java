@@ -2,6 +2,7 @@ package REST.Repositories;
 
 
 import Persistence.Entities.SimpleUser;
+import Persistence.Entities.VideoEncodingRequest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,17 +12,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class VideoEncodingRequestRepository implements JpaRepository<SimpleUser, String> {
-
+public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodingRequest, String> {
 
     @Override
-    public Optional<SimpleUser> findById(String s) {
+    public Optional<VideoEncodingRequest> findById(String s) {
         //TODO
         return Optional.empty();
     }
 
     @Override
-    public <S extends SimpleUser> S save(S s) {
+    public <S extends VideoEncodingRequest> S save(S s) {
         //TODO
         return null;
     }
@@ -40,7 +40,7 @@ public class VideoEncodingRequestRepository implements JpaRepository<SimpleUser,
 
 
     @Override
-    public List<SimpleUser> findAll() {
+    public List<VideoEncodingRequest> findAll() {
         //TODO
         return null;
     }
@@ -48,7 +48,7 @@ public class VideoEncodingRequestRepository implements JpaRepository<SimpleUser,
 
 
     @Override
-    public SimpleUser getOne(String id) {
+    public VideoEncodingRequest getOne(String id) {
         //TODO
         return null;
     }
@@ -78,77 +78,77 @@ public class VideoEncodingRequestRepository implements JpaRepository<SimpleUser,
 
 
     @Override
-    public void delete(SimpleUser simpleUser) {
+    public void delete(VideoEncodingRequest simpleUser) {
         throw new UnsupportedOperationException();
     }
 
 
     @Override
-    public void deleteAll(Iterable<? extends SimpleUser> iterable) {
+    public void deleteAll(Iterable<? extends VideoEncodingRequest> iterable) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<SimpleUser> findAll(Sort sort) {
+    public List<VideoEncodingRequest> findAll(Sort sort) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Page<SimpleUser> findAll(Pageable pageable) {
+    public Page<VideoEncodingRequest> findAll(Pageable pageable) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<SimpleUser> findAllById(Iterable<String> iterable) {
-        throw new UnsupportedOperationException();
-    }
-
-
-    @Override
-    public <S extends SimpleUser> List<S> saveAll(Iterable<S> iterable) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <S extends SimpleUser> S saveAndFlush(S s) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <S extends SimpleUser> Optional<S> findOne(Example<S> example) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <S extends SimpleUser> List<S> findAll(Example<S> example) {
-        throw new UnsupportedOperationException();
-    }
-
-
-
-    @Override
-    public <S extends SimpleUser> long count(Example<S> example) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <S extends SimpleUser> boolean exists(Example<S> example) {
+    public List<VideoEncodingRequest> findAllById(Iterable<String> iterable) {
         throw new UnsupportedOperationException();
     }
 
 
     @Override
-    public <S extends SimpleUser> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends VideoEncodingRequest> List<S> saveAll(Iterable<S> iterable) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends SimpleUser> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends VideoEncodingRequest> S saveAndFlush(S s) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void deleteInBatch(Iterable<SimpleUser> iterable) {
+    public <S extends VideoEncodingRequest> Optional<S> findOne(Example<S> example) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <S extends VideoEncodingRequest> List<S> findAll(Example<S> example) {
+        throw new UnsupportedOperationException();
+    }
+
+
+
+    @Override
+    public <S extends VideoEncodingRequest> long count(Example<S> example) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <S extends VideoEncodingRequest> boolean exists(Example<S> example) {
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Override
+    public <S extends VideoEncodingRequest> List<S> findAll(Example<S> example, Sort sort) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <S extends VideoEncodingRequest> Page<S> findAll(Example<S> example, Pageable pageable) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteInBatch(Iterable<VideoEncodingRequest> iterable) {
         throw new UnsupportedOperationException();
     }
 
@@ -156,5 +156,4 @@ public class VideoEncodingRequestRepository implements JpaRepository<SimpleUser,
     public void deleteAllInBatch() {
         throw new UnsupportedOperationException();
     }
-
 }
