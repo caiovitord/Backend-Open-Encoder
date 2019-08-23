@@ -1,17 +1,24 @@
 package REST.Repositories;
 
+import Persistence.DAO.GenericDAO;
+import Persistence.DAO.SimpleUserDAO;
+import Persistence.DataSource;
 import Persistence.Entities.SimpleUser;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+
+@Component
 public class UserRepository  implements JpaRepository<SimpleUser, String> {
 
+    private final SimpleUserDAO simpleUserDAO = new SimpleUserDAO(DataSource.getInstance().getEntityManager());
 
     @Override
     public Optional<SimpleUser> findById(String s) {
@@ -21,8 +28,8 @@ public class UserRepository  implements JpaRepository<SimpleUser, String> {
 
     @Override
     public <S extends SimpleUser> S save(S s) {
-        //TODO
-        return null;
+        simpleUserDAO.create(s);
+        return s;
     }
 
 
@@ -44,6 +51,12 @@ public class UserRepository  implements JpaRepository<SimpleUser, String> {
         return null;
     }
 
+    /*
+    *
+    * Operações não implementadas pois não serão usadas na API REST
+    *
+     */
+
 
 
     @Override
@@ -53,8 +66,6 @@ public class UserRepository  implements JpaRepository<SimpleUser, String> {
     }
 
 
-
-
     @Override
     public boolean existsById(String s) {
         throw new UnsupportedOperationException();
@@ -62,12 +73,9 @@ public class UserRepository  implements JpaRepository<SimpleUser, String> {
 
     @Override
     public void flush() {
-        //TODO
-        //Finaliza as operações e commita
+        throw new UnsupportedOperationException();
     }
 
-
-    //Operações não implementadas pois não serão usadas na API REST
 
     @Override
     public void deleteAll() {
