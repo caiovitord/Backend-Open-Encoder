@@ -8,57 +8,85 @@ import javax.validation.constraints.Null;
 public class VideoEncodingRequest {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private String encodingId;
 
 
     @ManyToOne
     private SimpleUser requestingUser;
 
+
     @NotNull
-    private long inputVideoFileId;
+    private String outputPath;
+    @NotNull
+    private String audioStreamId;
+    @NotNull
+    private String fmp4AudioMuxinId;
+    @NotNull
+    private String streamVideoId;
+    @NotNull
+    private String videoMuxinId;
 
-    private long outputVideoFileId;
-
-
-
-
-    //Constructors
-    public VideoEncodingRequest(SimpleUser requestingUser) {
-        this.requestingUser = requestingUser;
+    public VideoEncodingRequest(String encodingId, String outputPath, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId) {
+        this.encodingId = encodingId;
+        this.outputPath = outputPath;
+        this.audioStreamId = audioStreamId;
+        this.fmp4AudioMuxinId = fmp4AudioMuxinId;
+        this.streamVideoId = streamVideoId;
+        this.videoMuxinId = videoMuxinId;
     }
+
+
 
     public VideoEncodingRequest() {
 
     }
 
 
-    //Getter and Setters
-    public SimpleUser getRequestingUser() {
-        return requestingUser;
+    public String getEncodingId() {
+        return encodingId;
     }
 
-    public void setRequestingUser(SimpleUser requestingUser) {
-        this.requestingUser = requestingUser;
+    public void setEncodingId(String encodingId) {
+        this.encodingId = encodingId;
     }
 
-    public String getId() {
-        return id;
+    public String getOutputPath() {
+        return outputPath;
     }
 
-    public long getInputVideoFileId() {
-        return inputVideoFileId;
+    public void setOutputPath(String outputPath) {
+        this.outputPath = outputPath;
     }
 
-    public void setInputVideoFileId(long inputVideoFileId) {
-        this.inputVideoFileId = inputVideoFileId;
+    public String getAudioStreamId() {
+        return audioStreamId;
     }
 
-    public long getOutputVideoFileId() {
-        return outputVideoFileId;
+    public void setAudioStreamId(String audioStreamId) {
+        this.audioStreamId = audioStreamId;
     }
 
-    public void setOutputVideoFileId(long outputVideoFileId) {
-        this.outputVideoFileId = outputVideoFileId;
+    public String getFmp4AudioMuxinId() {
+        return fmp4AudioMuxinId;
+    }
+
+    public void setFmp4AudioMuxinId(String fmp4AudioMuxinId) {
+        this.fmp4AudioMuxinId = fmp4AudioMuxinId;
+    }
+
+    public String getStreamVideoId() {
+        return streamVideoId;
+    }
+
+    public void setStreamVideoId(String streamVideoId) {
+        this.streamVideoId = streamVideoId;
+    }
+
+    public String getVideoMuxinId() {
+        return videoMuxinId;
+    }
+
+    public void setVideoMuxinId(String videoMuxinId) {
+        this.videoMuxinId = videoMuxinId;
     }
 }

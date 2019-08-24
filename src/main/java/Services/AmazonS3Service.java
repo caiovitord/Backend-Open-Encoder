@@ -1,4 +1,4 @@
-package Persistence.Services;
+package Services;
 
 import Persistence.BucketsEnum;
 import com.amazonaws.auth.AWSCredentials;
@@ -19,8 +19,8 @@ public class AmazonS3Service {
 
     private final AmazonS3 s3client;
 
-    public static final String ACCESS_KEY = "AKIAX4GJZQVTWUH7F76L";
-    public static final String SECRET = "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";
+    public static final String ACCESS_KEY = "AKIAX4GJZQVTXHFJZVOI";
+    public static final String SECRET = "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";
 
     private AmazonS3Service(){
         AWSCredentials credentials = new BasicAWSCredentials(

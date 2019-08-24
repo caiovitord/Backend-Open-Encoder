@@ -1,13 +1,9 @@
 package REST.Controllers;
 
-import Persistence.BucketsEnum;
 import Persistence.DAO.VideoFileDAO;
 import Persistence.DataSource;
-import Persistence.Entities.SimpleUser;
 import Persistence.Entities.VideoFile;
-import Persistence.Services.AmazonS3Service;
-import Persistence.Services.EncoderService;
-import REST.Exceptions.UserAlreadyExistsException;
+import Services.Encoding.EncoderService;
 import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.bitmovin.api.http.RestException;
 import com.mashape.unirest.http.exceptions.UnirestException;

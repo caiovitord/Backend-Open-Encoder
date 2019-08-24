@@ -1,19 +1,14 @@
-package Persistence.Services;
+package Services;
 
 import Persistence.BucketsEnum;
 import Persistence.DAO.VideoFileDAO;
 import Persistence.DataSource;
 import Persistence.Entities.VideoFile;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import org.apache.commons.io.FileUtils;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.util.Pair;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 
 

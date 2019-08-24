@@ -1,6 +1,6 @@
 package REST.Controllers;
 
-import Persistence.Services.StorageService;
+import Services.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
