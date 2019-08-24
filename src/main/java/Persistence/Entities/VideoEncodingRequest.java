@@ -26,13 +26,17 @@ public class VideoEncodingRequest {
     @NotNull
     private String videoMuxinId;
 
-    public VideoEncodingRequest(String encodingId, String outputPath, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId) {
+    @NotNull
+    private boolean createdManifest;
+
+    public VideoEncodingRequest(String encodingId, String outputPath, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId, boolean createdManifest) {
         this.encodingId = encodingId;
         this.outputPath = outputPath;
         this.audioStreamId = audioStreamId;
         this.fmp4AudioMuxinId = fmp4AudioMuxinId;
         this.streamVideoId = streamVideoId;
         this.videoMuxinId = videoMuxinId;
+        this.createdManifest = createdManifest;
     }
 
 
@@ -88,5 +92,13 @@ public class VideoEncodingRequest {
 
     public void setVideoMuxinId(String videoMuxinId) {
         this.videoMuxinId = videoMuxinId;
+    }
+
+    public boolean createdManifest() {
+        return createdManifest;
+    }
+
+    public void setCreatedManifest(boolean createdManifest) {
+        this.createdManifest = createdManifest;
     }
 }

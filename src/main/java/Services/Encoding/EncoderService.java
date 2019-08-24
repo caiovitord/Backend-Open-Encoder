@@ -159,7 +159,8 @@ public class EncoderService {
                 audioStream.getId(),
                 fmpAudio4Muxing.getId(),
                 streamVideo.getId(),
-                videoMuxing.getId()
+                videoMuxing.getId(),
+                false
         );
 
         videoEncodingRequestDAO.create(request);
@@ -208,6 +209,9 @@ public class EncoderService {
         streamInfo = bitmovinApi.manifest.hls.createStreamInfo(manifest, streamInfo);
 
         bitmovinApi.manifest.hls.startGeneration(manifest);
+
+        request.setCreatedManifest(true);
+        videoEncodingRequestDAO.update(request);
     }
 
 

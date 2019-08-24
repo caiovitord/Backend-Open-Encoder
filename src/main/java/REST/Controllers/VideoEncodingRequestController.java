@@ -41,6 +41,20 @@ public class VideoEncodingRequestController {
         }else return ResponseEntity.notFound().build();
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/encoder/{encodingId}/create-manifest")
+    ResponseEntity createManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
+        System.out.println("POST /encoder/{id}/create-manifest " + encodingId);
+
+        VideoEncodingRequest request = videoEncodingRequestDAO.find(encodingId);
+        if(request != null){
+            if(!request.createdManifest())
+                encoderService.createManifest(request);
+            return ResponseEntity.ok().build();
+        }else return ResponseEntity.notFound().build();
+    }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/encoder")
     ResponseEntity<VideoEncodingRequest> startEncodingProcess(@RequestBody String fileName) {
