@@ -25,9 +25,11 @@ import com.bitmovin.api.encoding.manifest.hls.HlsManifest;
 import com.bitmovin.api.encoding.manifest.hls.StreamInfo;
 import com.bitmovin.api.encoding.outputs.S3Output;
 import com.bitmovin.api.encoding.status.Message;
+import com.bitmovin.api.encoding.status.Task;
 import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.bitmovin.api.http.RestException;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -206,5 +208,10 @@ public class EncoderService {
         streamInfo = bitmovinApi.manifest.hls.createStreamInfo(manifest, streamInfo);
 
         bitmovinApi.manifest.hls.startGeneration(manifest);
+    }
+
+
+    public Task getStatusAndProgressOfEncoding(String encodingId) throws URISyntaxException, BitmovinApiException, RestException, UnirestException, IOException {
+        return  bitmovinApi.encoding.getStatus(bitmovinApi.encoding.getDetails(encodingId));
     }
 }

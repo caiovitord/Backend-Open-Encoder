@@ -58,6 +58,12 @@ public class EncoderConfigurationService {
             videoConfigId = sc.nextLine();
             audioConfigId = sc.nextLine();
 
+            System.out.println("Retrieved config file. Check out the ids");
+            System.out.println("InputId " +  inputId);
+            System.out.println("outputId " + outputId);
+            System.out.println("videoConfigId " + videoConfigId);
+            System.out.println("audioConfigId " +  audioConfigId);
+
         } catch (FileNotFoundException e) {
             System.out.println("Failed. Config file does not exists");
             System.out.println("Trying to create new config file");

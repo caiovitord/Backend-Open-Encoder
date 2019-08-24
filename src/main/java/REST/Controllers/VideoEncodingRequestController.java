@@ -1,10 +1,13 @@
 package REST.Controllers;
 
+import Persistence.DAO.VideoEncodingRequestDAO;
 import Persistence.DAO.VideoFileDAO;
 import Persistence.DataSource;
 import Persistence.Entities.VideoEncodingRequest;
 import Persistence.Entities.VideoFile;
 import Services.Encoding.EncoderService;
+import com.bitmovin.api.encoding.encodings.Encoding;
+import com.bitmovin.api.encoding.status.Task;
 import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.bitmovin.api.http.RestException;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -18,10 +21,24 @@ import java.net.URISyntaxException;
 public class VideoEncodingRequestController {
 
     private final VideoFileDAO videoFileDAO = new VideoFileDAO(DataSource.getInstance().getEntityManager());
+    private final VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSource.getInstance().getEntityManager());
+
     //private final AmazonS3Service amazonS3Service = AmazonS3Service.getInstance();
     private final EncoderService encoderService = new EncoderService();
 
     public VideoEncodingRequestController() throws URISyntaxException, BitmovinApiException, UnirestException, IOException {
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/encoder/{encodingId}")
+    ResponseEntity<Task> checkEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
+        System.out.println("GET /encoder/{id} " + encodingId);
+
+        VideoEncodingRequest request = videoEncodingRequestDAO.find(encodingId);
+        if(request != null){
+            return ResponseEntity.ok().body(this.encoderService.getStatusAndProgressOfEncoding(request.getEncodingId()));
+        }else return ResponseEntity.notFound().build();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
