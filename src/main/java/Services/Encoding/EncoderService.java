@@ -1,6 +1,9 @@
 package Services.Encoding;
 
 import Persistence.BucketsEnum;
+import Persistence.DAO.VideoEncodingRequestDAO;
+import Persistence.DataSource;
+import Persistence.Entities.VideoEncodingRequest;
 import Services.AmazonS3Service;
 import com.bitmovin.api.BitmovinApi;
 import com.bitmovin.api.encoding.AclEntry;
@@ -41,6 +44,9 @@ public class EncoderService {
     private final String audioConfigId;
     private final ArrayList<AclEntry> aclEntries;
 
+
+    private final VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSource.getInstance().getEntityManager());
+
     public EncoderService() throws IOException {
         bitmovinApi = new BitmovinApi("91e8346c-a81c-4f09-b5cc-3b246f80e87d");
         EncoderConfigurationService config = new EncoderConfigurationService(bitmovinApi);
@@ -57,7 +63,7 @@ public class EncoderService {
 
     }
 
-    public void encode(String inputFile) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
+    public VideoEncodingRequest encode(String inputFile) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
         //Create encoding
         Encoding encoding = new Encoding();
 
@@ -144,16 +150,28 @@ public class EncoderService {
         fmpAudio4Muxing = bitmovinApi.encoding.muxing.addFmp4MuxingToEncoding(encoding, fmpAudio4Muxing);
 
         List<Message> msg = bitmovinApi.encoding.start(encoding);
+
+        VideoEncodingRequest request = new VideoEncodingRequest(
+                encoding.getId(),
+                outputPath,
+                audioStream.getId(),
+                fmpAudio4Muxing.getId(),
+                streamVideo.getId(),
+                videoMuxing.getId()
+        );
+
+        videoEncodingRequestDAO.create(request);
+        return request;
     }
 
-    public void createManifest(String outputPath, String encodingId, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
+    public void createManifest(VideoEncodingRequest request) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
         //Should wait until finish to create manifest
         //Create manifest
         HlsManifest manifest = new HlsManifest();
 
         EncodingOutput encodingOutput = new EncodingOutput();
         encodingOutput.setOutputId(outputId);
-        encodingOutput.setOutputPath(outputPath);
+        encodingOutput.setOutputPath(request.getOutputPath());
         encodingOutput.setAcl(aclEntries);
 
         manifest.setName("manifest.m3u8");
@@ -167,9 +185,9 @@ public class EncoderService {
         audioMediaInfo.setGroupId("audio_group");
         audioMediaInfo.setSegmentPath("audio/128000/fmp4");
         audioMediaInfo.setUri("audiomedia.m3u8");
-        audioMediaInfo.setEncodingId(encodingId);
-        audioMediaInfo.setStreamId(audioStreamId);
-        audioMediaInfo.setMuxingId(fmp4AudioMuxinId);
+        audioMediaInfo.setEncodingId(request.getEncodingId());
+        audioMediaInfo.setStreamId(request.getAudioStreamId());
+        audioMediaInfo.setMuxingId(request.getFmp4AudioMuxinId());
         audioMediaInfo.setLanguage("en");
 
         audioMediaInfo = bitmovinApi.manifest.hls.createAudioMediaInfo(manifest, audioMediaInfo);
@@ -181,9 +199,9 @@ public class EncoderService {
         streamInfo.setClosedCaptions("NONE");
         streamInfo.setSegmentPath("video/384_375000/fmp4");
         streamInfo.setUri("video.m3u8");
-        streamInfo.setEncodingId(encodingId);
-        streamInfo.setStreamId(streamVideoId);
-        streamInfo.setMuxingId(videoMuxinId);
+        streamInfo.setEncodingId(request.getEncodingId());
+        streamInfo.setStreamId(request.getStreamVideoId());
+        streamInfo.setMuxingId(request.getVideoMuxinId());
 
         streamInfo = bitmovinApi.manifest.hls.createStreamInfo(manifest, streamInfo);
 

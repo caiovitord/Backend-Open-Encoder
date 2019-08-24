@@ -59,13 +59,22 @@ public class EncoderConfigurationService {
             audioConfigId = sc.nextLine();
 
         } catch (FileNotFoundException e) {
+            System.out.println("Failed. Config file does not exists");
+            System.out.println("Trying to create new config file");
 
             inputId = this.createInput();
             outputId = this.createOutput();
             videoConfigId = this.createVideoConfig(VideoConfigurationEnum.LOW);
             audioConfigId = this.createAudioConfig();
-            this.writeConfigurationToFile();
 
+
+            System.out.println("Created resources: Checkout the IDS:");
+            System.out.println("InputId " +  inputId);
+            System.out.println("outputId " + outputId);
+            System.out.println("videoConfigId " + videoConfigId);
+            System.out.println("audioConfigId " +  audioConfigId);
+
+            this.writeConfigurationToFile();
         }
     }
 
@@ -73,15 +82,16 @@ public class EncoderConfigurationService {
         try {
             FileWriter fw = new FileWriter(new File("bitmovinConfig.ini"));
 
-            fw.write(inputId + "/n");
-            fw.write(outputId + "/n");
-            fw.write(videoConfigId + "/n");
+            fw.write(inputId + "\n");
+            fw.write(outputId + "\n");
+            fw.write(videoConfigId + "\n");
             fw.write(audioConfigId);
 
             fw.flush();
             fw.close();
-
+            System.out.println("Created new config file");
         } catch (IOException e) {
+            System.out.println("Failed to create new config file");
             e.printStackTrace();
         }
     }
@@ -107,7 +117,7 @@ public class EncoderConfigurationService {
     private String createAudioConfig() throws URISyntaxException, BitmovinApiException, UnirestException, IOException {
         //Audio codec config
         AACAudioConfig audioCodecConfig = new AACAudioConfig();
-        audioCodecConfig.setName("Getting Started Audio Codec Config");
+        audioCodecConfig.setName("Standart Audio Codec Config");
         audioCodecConfig.setBitrate(128000L);
         audioCodecConfig = bitmovinApi.configuration.audioAAC.create(audioCodecConfig);
         return audioCodecConfig.getId();
@@ -118,7 +128,7 @@ public class EncoderConfigurationService {
             //Video codec config
             H264VideoConfiguration videoCodecConfig = new H264VideoConfiguration();
 
-            videoCodecConfig.setName("Getting Started H264 Codec Config");
+            videoCodecConfig.setName("Standart LOW H264 Codec Config");
             videoCodecConfig.setBitrate(375000L);
             videoCodecConfig.setWidth(384);
             videoCodecConfig.setProfile(ProfileH264.HIGH);

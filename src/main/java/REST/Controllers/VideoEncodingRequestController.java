@@ -2,6 +2,7 @@ package REST.Controllers;
 
 import Persistence.DAO.VideoFileDAO;
 import Persistence.DataSource;
+import Persistence.Entities.VideoEncodingRequest;
 import Persistence.Entities.VideoFile;
 import Services.Encoding.EncoderService;
 import com.bitmovin.api.exceptions.BitmovinApiException;
@@ -25,15 +26,15 @@ public class VideoEncodingRequestController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/encoder")
-    ResponseEntity<String> startEncodingProcess(@RequestBody String fileName) {
+    ResponseEntity<VideoEncodingRequest> startEncodingProcess(@RequestBody String fileName) {
         System.out.println("POST /encoder " + fileName);
-        VideoFile video = videoFileDAO.find(fileName);
 
+        VideoFile video = videoFileDAO.find(fileName);
         //String fileInputUrl = amazonS3Service.getFileUrl(BucketsEnum.INPUT_BUCKET, fileName);
 
-
+        VideoEncodingRequest request = null;
         try {
-            encoderService.encode(fileName);
+            request = encoderService.encode(fileName);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (BitmovinApiException e) {
@@ -46,7 +47,9 @@ public class VideoEncodingRequestController {
             e.printStackTrace();
         }
 
-        return ResponseEntity.ok().body(video.getFileName());
+        if(request != null)
+            return ResponseEntity.ok().body(request);
+        else return ResponseEntity.status(500).body(null);
     }
 
 }
