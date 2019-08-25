@@ -1,6 +1,8 @@
 package REST.Repositories;
 
 
+import Persistence.DAO.VideoEncodingRequestDAO;
+import Persistence.DataSource;
 import Persistence.Entities.SimpleUser;
 import Persistence.Entities.VideoEncodingRequest;
 import org.springframework.data.domain.Example;
@@ -16,24 +18,15 @@ import java.util.Optional;
 @Component
 public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodingRequest, String> {
 
+
+    VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSource.getInstance().getEntityManager());
+
     @Override
     public Optional<VideoEncodingRequest> findById(String s) {
         //TODO
         return Optional.empty();
     }
 
-    @Override
-    public <S extends VideoEncodingRequest> S save(S s) {
-        //TODO
-        return null;
-    }
-
-
-    @Override
-    public long count() {
-        //TODO
-        return 0;
-    }
 
     @Override
     public void deleteById(String id) {
@@ -43,8 +36,7 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
 
     @Override
     public List<VideoEncodingRequest> findAll() {
-        //TODO
-        return null;
+        return videoEncodingRequestDAO.findAll();
     }
 
 
@@ -53,6 +45,16 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
      * Operações não implementadas pois não serão usadas na API REST
      *
      */
+
+    @Override
+    public long count() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <S extends VideoEncodingRequest> S save(S s) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public boolean existsById(String s) {

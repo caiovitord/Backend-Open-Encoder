@@ -3,6 +3,7 @@ package Persistence.Entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.sql.Date;
 
 @Entity
 public class VideoEncodingRequest {
@@ -14,6 +15,8 @@ public class VideoEncodingRequest {
     @ManyToOne
     private SimpleUser requestingUser;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
     @NotNull
     private String outputPath;
@@ -37,6 +40,7 @@ public class VideoEncodingRequest {
         this.streamVideoId = streamVideoId;
         this.videoMuxinId = videoMuxinId;
         this.createdManifest = createdManifest;
+        this.createdAt = new Date(new java.util.Date().getTime());
     }
 
 
