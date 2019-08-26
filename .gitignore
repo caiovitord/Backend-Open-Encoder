@@ -30,3 +30,4 @@ target/classes/META-INF/BackendSambatechEncoding.kotlin_module
 database_file.odb
 database_file.odb$
 /target/
+/out/

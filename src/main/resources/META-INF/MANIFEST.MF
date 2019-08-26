@@ -1,0 +1,139 @@
+Manifest-Version: 1.0
+Main-Class: REST.Main
+Class-Path: aws-java-sdk-managedblockchain-1.11.617.jar aws-java-sdk-med
+ iastore-1.11.617.jar aws-java-sdk-workspaces-1.11.617.jar aws-java-sdk-
+ stepfunctions-1.11.617.jar json-schema-core-1.2.8.jar aws-java-sdk-appl
+ icationinsights-1.11.617.jar aws-java-sdk-rds-1.11.617.jar mailapi-1.4.
+ 3.jar aws-java-sdk-greengrass-1.11.617.jar aws-java-sdk-1.11.617.jar aw
+ s-java-sdk-budgets-1.11.617.jar aws-java-sdk-athena-1.11.617.jar unires
+ t-java-1.4.9.jar aws-java-sdk-eventbridge-1.11.617.jar logback-classic-
+ 1.2.3.jar aws-java-sdk-lakeformation-1.11.617.jar spring-beans-5.1.8.RE
+ LEASE.jar aws-java-sdk-ecs-1.11.617.jar aws-java-sdk-clouddirectory-1.1
+ 1.617.jar bcmail-jdk15on-1.58.jar aws-java-sdk-pi-1.11.617.jar spring-b
+ oot-starter-2.1.6.RELEASE.jar aws-java-sdk-elasticsearch-1.11.617.jar a
+ ctivation-1.1.jar aws-java-sdk-mediaconnect-1.11.617.jar commons-text-1
+ .1.jar aws-java-sdk-mediastoredata-1.11.617.jar jackson-core-2.9.9.jar 
+ aws-java-sdk-forecastquery-1.11.617.jar aws-java-sdk-robomaker-1.11.617
+ .jar msg-simple-1.1.jar aws-java-sdk-inspector-1.11.617.jar aws-java-sd
+ k-iam-1.11.617.jar spring-boot-starter-logging-2.1.6.RELEASE.jar aws-ja
+ va-sdk-polly-1.11.617.jar aws-java-sdk-sagemakerruntime-1.11.617.jar aw
+ s-java-sdk-iotthingsgraph-1.11.617.jar jackson-datatype-jdk8-2.9.9.jar 
+ jsr305-3.0.1.jar aws-java-sdk-forecast-1.11.617.jar mockserver-core-5.3
+ .0.jar aws-java-sdk-servermigration-1.11.617.jar aws-java-sdk-core-1.11
+ .617.jar hibernate-validator-6.0.17.Final.jar netty-codec-4.1.36.Final.
+ jar aws-java-sdk-acm-1.11.617.jar netty-buffer-4.1.36.Final.jar aws-jav
+ a-sdk-rekognition-1.11.617.jar jackson-module-parameter-names-2.9.9.jar
+  aws-java-sdk-ecr-1.11.617.jar aws-java-sdk-elasticloadbalancingv2-1.11
+ .617.jar validation-api-2.0.1.Final.jar aws-java-sdk-cognitosync-1.11.6
+ 17.jar aws-java-sdk-elasticloadbalancing-1.11.617.jar bcprov-jdk15on-1.
+ 58.jar aws-java-sdk-migrationhub-1.11.617.jar bcpkix-jdk15on-1.58.jar a
+ ws-java-sdk-elasticache-1.11.617.jar spring-orm-5.1.8.RELEASE.jar aws-j
+ ava-sdk-textract-1.11.617.jar aws-java-sdk-servicediscovery-1.11.617.ja
+ r uri-template-0.9.jar mockserver-netty-5.3.0.jar aws-java-sdk-glacier-
+ 1.11.617.jar aws-java-sdk-lambda-1.11.617.jar aws-java-sdk-appsync-1.11
+ .617.jar aws-java-sdk-personalize-1.11.617.jar tomcat-embed-websocket-9
+ .0.21.jar aws-java-sdk-globalaccelerator-1.11.617.jar httpcore-4.4.11.j
+ ar aws-java-sdk-alexaforbusiness-1.11.617.jar aws-java-sdk-waf-1.11.617
+ .jar mockserver-client-java-5.3.0.jar aws-java-sdk-opsworks-1.11.617.ja
+ r aws-java-sdk-importexport-1.11.617.jar aws-java-sdk-kinesis-1.11.617.
+ jar aws-java-sdk-appstream-1.11.617.jar jsonassert-1.5.0.jar aws-java-s
+ dk-cognitoidentity-1.11.617.jar spring-data-commons-2.1.10.RELEASE.jar 
+ spring-core-5.1.9.RELEASE.jar aws-java-sdk-swf-libraries-1.11.22.jar sp
+ ring-jcl-5.1.8.RELEASE.jar commons-logging-1.1.3.jar guava-18.0.jar spr
+ ing-data-jpa-2.1.10.RELEASE.jar aws-java-sdk-codepipeline-1.11.617.jar 
+ aws-java-sdk-kinesisanalyticsv2-1.11.617.jar snakeyaml-1.23.jar spring-
+ expression-5.1.8.RELEASE.jar aws-java-sdk-dms-1.11.617.jar aws-java-sdk
+ -cloudsearch-1.11.617.jar aws-java-sdk-comprehendmedical-1.11.617.jar a
+ ws-java-sdk-directory-1.11.617.jar aws-java-sdk-snowball-1.11.617.jar a
+ ws-java-sdk-dlm-1.11.617.jar aws-java-sdk-appmesh-1.11.617.jar aws-java
+ -sdk-datasync-1.11.617.jar aws-java-sdk-dynamodb-1.11.617.jar aws-java-
+ sdk-gamelift-1.11.617.jar aws-java-sdk-mechanicalturkrequester-1.11.617
+ .jar aws-java-sdk-mediapackagevod-1.11.617.jar aws-java-sdk-sqs-1.11.61
+ 7.jar aws-java-sdk-pinpointemail-1.11.617.jar classmate-1.4.0.jar aws-j
+ ava-sdk-mediapackage-1.11.617.jar aws-java-sdk-cognitoidp-1.11.617.jar 
+ aws-java-sdk-lex-1.11.617.jar velocity-engine-core-2.0.jar jmespath-jav
+ a-1.11.617.jar aws-java-sdk-organizations-1.11.617.jar aws-java-sdk-iot
+ events-1.11.617.jar netty-resolver-4.1.36.Final.jar aws-java-sdk-apigat
+ ewaymanagementapi-1.11.617.jar aws-java-sdk-transfer-1.11.617.jar junit
+ -4.12.jar aws-java-sdk-iot-1.11.617.jar jackson-annotations-2.9.0.jar a
+ ws-java-sdk-events-1.11.617.jar aws-java-sdk-translate-1.11.617.jar jan
+ ino-2.5.10.jar aws-java-sdk-support-1.11.617.jar spring-context-5.1.8.R
+ ELEASE.jar aws-java-sdk-lexmodelbuilding-1.11.617.jar aws-java-sdk-conf
+ ig-1.11.617.jar aws-java-sdk-iot1clickdevices-1.11.617.jar aws-java-sdk
+ -devicefarm-1.11.617.jar aws-java-sdk-ec2instanceconnect-1.11.617.jar a
+ ws-java-sdk-fms-1.11.617.jar aws-java-sdk-personalizeevents-1.11.617.ja
+ r aws-java-sdk-pricing-1.11.617.jar mockserver-logging-5.3.0.jar spring
+ -boot-starter-web-2.1.7.RELEASE.jar aws-java-sdk-mq-1.11.617.jar spring
+ -boot-starter-json-2.1.6.RELEASE.jar spring-jdbc-5.1.8.RELEASE.jar spri
+ ng-boot-starter-tomcat-2.1.6.RELEASE.jar aws-java-sdk-mediatailor-1.11.
+ 617.jar aws-java-sdk-cloudfront-1.11.617.jar aws-java-sdk-autoscaling-1
+ .11.617.jar aws-java-sdk-resourcegroups-1.11.617.jar aws-java-sdk-signe
+ r-1.11.617.jar jackson-datatype-jsr310-2.9.9.jar aws-java-sdk-codedeplo
+ y-1.11.617.jar log4j-api-2.11.2.jar aws-java-sdk-health-1.11.617.jar aw
+ s-java-sdk-workmail-1.11.617.jar aws-java-sdk-s3control-1.11.617.jar js
+ on-20160212.jar aws-java-sdk-connect-1.11.617.jar aws-java-sdk-rdsdata-
+ 1.11.617.jar aws-java-sdk-pinpoint-1.11.617.jar aws-java-sdk-macie-1.11
+ .617.jar aws-java-sdk-models-1.11.617.jar aws-java-sdk-sns-1.11.617.jar
+  spring-aop-5.1.8.RELEASE.jar aws-java-sdk-ram-1.11.617.jar aws-java-sd
+ k-serverlessapplicationrepository-1.11.617.jar aws-java-sdk-servicequot
+ as-1.11.617.jar aws-java-sdk-machinelearning-1.11.617.jar aws-java-sdk-
+ marketplacecommerceanalytics-1.11.617.jar javax.persistence-api-2.2.jar
+  aws-java-sdk-ses-1.11.617.jar spring-web-5.1.9.RELEASE.jar jta-1.1.jar
+  aws-java-sdk-groundstation-1.11.617.jar aws-java-sdk-ssm-1.11.617.jar 
+ aws-java-sdk-kafka-1.11.617.jar aws-java-sdk-resourcegroupstaggingapi-1
+ .11.617.jar tomcat-embed-core-9.0.21.jar aws-java-sdk-codestar-1.11.617
+ .jar aws-java-sdk-mobile-1.11.617.jar json-schema-validator-2.2.8.jar a
+ ws-java-sdk-codecommit-1.11.617.jar aws-java-sdk-personalizeruntime-1.1
+ 1.617.jar bitmovin-java-1.43.0.jar ion-java-1.0.2.jar aws-java-sdk-secu
+ rityhub-1.11.617.jar jopt-simple-5.0.3.jar aws-java-sdk-route53resolver
+ -1.11.617.jar aws-java-sdk-autoscalingplans-1.11.617.jar aws-java-sdk-c
+ loudhsm-1.11.617.jar aws-java-sdk-backup-1.11.617.jar aws-java-sdk-opsw
+ orkscm-1.11.617.jar aws-java-sdk-iotjobsdataplane-1.11.617.jar commons-
+ collections-3.2.2.jar aws-java-sdk-sagemaker-1.11.617.jar aws-java-sdk-
+ codebuild-1.11.617.jar jul-to-slf4j-1.7.26.jar aws-java-sdk-acmpca-1.11
+ .617.jar aws-java-sdk-simpledb-1.11.617.jar aws-java-sdk-fsx-1.11.617.j
+ ar httpasyncclient-4.1.4.jar spring-boot-2.1.6.RELEASE.jar aws-java-sdk
+ -pinpointsmsvoice-1.11.617.jar aws-java-sdk-batch-1.11.617.jar httpclie
+ nt-4.5.9.jar aws-java-sdk-marketplaceentitlement-1.11.617.jar joda-time
+ -2.10.2.jar slf4j-api-1.7.26.jar commons-codec-1.11.jar commons-lang3-3
+ .8.1.jar jackson-databind-2.9.4.jar aws-java-sdk-servicecatalog-1.11.61
+ 7.jar jzlib-1.1.3.jar aws-java-sdk-sts-1.11.617.jar aws-java-sdk-eks-1.
+ 11.617.jar javax.activation-api-1.2.0.jar aws-java-sdk-elastictranscode
+ r-1.11.617.jar btf-1.2.jar aws-java-sdk-logs-1.11.617.jar jaxb-api-2.3.
+ 1.jar aws-java-sdk-redshift-1.11.617.jar libphonenumber-8.0.0.jar httpc
+ ore-nio-4.4.11.jar aws-java-sdk-iot1clickprojects-1.11.617.jar aws-java
+ -sdk-secretsmanager-1.11.617.jar aws-java-sdk-transcribe-1.11.617.jar a
+ ws-java-sdk-kms-1.11.617.jar tomcat-embed-el-9.0.21.jar aws-java-sdk-wo
+ rklink-1.11.617.jar rhino-1.7R4.jar logback-core-1.2.3.jar aspectjrt-1.
+ 9.4.jar netty-handler-4.1.36.Final.jar aws-java-sdk-route53-1.11.617.ja
+ r aws-java-sdk-workdocs-1.11.617.jar aws-java-sdk-medialive-1.11.617.ja
+ r aws-java-sdk-discovery-1.11.617.jar android-json-0.0.20131108.vaadin1
+ .jar aws-java-sdk-lightsail-1.11.617.jar log4j-to-slf4j-2.11.2.jar spri
+ ng-tx-5.1.8.RELEASE.jar aws-java-sdk-glue-1.11.617.jar aws-java-sdk-emr
+ -1.11.617.jar commons-io-2.4.jar aws-java-sdk-cloudwatch-1.11.617.jar a
+ ws-java-sdk-quicksight-1.11.617.jar spring-boot-autoconfigure-2.1.6.REL
+ EASE.jar aws-java-sdk-kinesisvideo-1.11.617.jar aws-java-sdk-s3-1.11.61
+ 7.jar aws-java-sdk-datapipeline-1.11.617.jar aws-java-sdk-costexplorer-
+ 1.11.617.jar aws-java-sdk-shield-1.11.617.jar aws-java-sdk-apigatewayv2
+ -1.11.617.jar aws-java-sdk-docdb-1.11.617.jar aws-java-sdk-mediaconvert
+ -1.11.617.jar netty-transport-4.1.36.Final.jar httpmime-4.5.9.jar objec
+ tdb-2.8.1.jar javax.annotation-api-1.3.2.jar aws-java-sdk-cloudtrail-1.
+ 11.617.jar aws-java-sdk-ec2-1.11.617.jar netty-common-4.1.36.Final.jar 
+ aws-java-sdk-iotanalytics-1.11.617.jar netty-codec-http-4.1.36.Final.ja
+ r aws-java-sdk-api-gateway-1.11.617.jar aws-java-sdk-elasticbeanstalk-1
+ .11.617.jar javax.servlet-api-4.0.1.jar aws-java-sdk-guardduty-1.11.617
+ .jar aws-java-sdk-licensemanager-1.11.617.jar hamcrest-core-1.3.jar aws
+ -java-sdk-efs-1.11.617.jar aws-java-sdk-comprehend-1.11.617.jar jackson
+ -dataformat-cbor-2.9.9.jar jackson-coreutils-1.8.jar aws-java-sdk-stora
+ gegateway-1.11.617.jar aws-java-sdk-chime-1.11.617.jar aws-java-sdk-dax
+ -1.11.617.jar aws-java-sdk-amplify-1.11.617.jar aws-java-sdk-directconn
+ ect-1.11.617.jar aws-java-sdk-neptune-1.11.617.jar aws-java-sdk-simplew
+ orkflow-1.11.617.jar jboss-logging-3.3.2.Final.jar aws-java-sdk-marketp
+ lacemeteringservice-1.11.617.jar aws-java-sdk-cloud9-1.11.617.jar sprin
+ g-webmvc-5.1.8.RELEASE.jar aws-java-sdk-ioteventsdata-1.11.617.jar aws-
+ java-sdk-cloudformation-1.11.617.jar velocity-engine-scripting-2.0.jar 
+ aws-java-sdk-cloudhsmv2-1.11.617.jar aws-java-sdk-applicationautoscalin
+ g-1.11.617.jar netty-codec-socks-4.1.36.Final.jar aws-java-sdk-costandu
+ sagereport-1.11.617.jar aws-java-sdk-cloudwatchmetrics-1.11.617.jar aws
+ -java-sdk-xray-1.11.617.jar
+
