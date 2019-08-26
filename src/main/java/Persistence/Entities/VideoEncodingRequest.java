@@ -5,12 +5,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.sql.Date;
 
+
+/**
+* Objeto de entidade.
+* Este objeto guarda todos os dados necessários para buscar os vídeos após o encoding.
+* */
 @Entity
 public class VideoEncodingRequest {
 
     @Id
     private String encodingId;
-
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -26,8 +30,10 @@ public class VideoEncodingRequest {
     @NotNull
     private String videoMuxinId;
 
+
     @NotNull
     private boolean createdManifest;
+
 
     private String generatedVideoLink;
 
@@ -47,6 +53,10 @@ public class VideoEncodingRequest {
     public VideoEncodingRequest() {
 
     }
+
+
+
+
 
 
     public String getEncodingId() {

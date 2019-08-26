@@ -1,17 +1,21 @@
-package Services;
+package Services.Storage;
 
-import Persistence.BucketsEnum;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
-
 import java.io.File;
+
+/**
+ * Classe que implementa o Design Pattern Singleton.
+ *
+ * Essa classe serve para acessar o serviço de Armazenamento S3 da Amazon.
+ * A classe implementa o serviço de realizar uploads de arquivos de vídeo.
+ */
 
 public class AmazonS3Service {
 
@@ -19,19 +23,22 @@ public class AmazonS3Service {
 
     private final AmazonS3 s3client;
 
-    public static final String ACCESS_KEY = "AKIAX4GJZQVTXHFJZVOI";
-    public static final String SECRET = "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";
+    public static final String AWS_INPUT_BUCKET_NAME = "open-encoder-input";
+    public static final String AWS_OUTPUT_BUCKET_NAME = "open-encoder-output";
+
+    public static final String AWS_ACCESS_KEY = "AKIAX4GJZQVTXHFJZVOI";
+    public static final String AWS_SECRET = "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";
 
     private AmazonS3Service(){
         AWSCredentials credentials = new BasicAWSCredentials(
-                ACCESS_KEY,
-                SECRET
+                AWS_ACCESS_KEY,
+                AWS_SECRET
         );
 
         s3client = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(Regions.US_EAST_1)
+                //.withRegion(Regions.US_EAST_1)
                 .build();
     }
 

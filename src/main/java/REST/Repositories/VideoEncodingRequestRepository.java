@@ -26,11 +26,11 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
         return Optional.empty();
     }
 
-
     @Override
     public void deleteById(String id) {
-        //TODO
+        videoEncodingRequestDAO.deleteByKey(id);
     }
+
 
 
     @Override
@@ -44,6 +44,7 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
      * Operações não implementadas pois não serão usadas na API REST
      *
      */
+
 
     @Override
     public long count() {

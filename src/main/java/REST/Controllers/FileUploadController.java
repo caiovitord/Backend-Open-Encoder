@@ -1,6 +1,6 @@
 package REST.Controllers;
 
-import Services.StorageService;
+import Services.Storage.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,21 +17,9 @@ public class FileUploadController {
     }
 
 
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-        //TODO
-        //Resource file = storageService.loadAsResource(filename);
-        return null;
-       /* return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);*/
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @PostMapping("/file")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
         return ResponseEntity
                 .ok()

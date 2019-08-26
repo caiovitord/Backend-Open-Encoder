@@ -1,7 +1,7 @@
 package Services.Encoding;
 
-import Persistence.BucketsEnum;
-import Services.AmazonS3Service;
+import Services.Storage.BucketsEnum;
+import Services.Storage.AmazonS3Service;
 import com.bitmovin.api.BitmovinApi;
 import com.bitmovin.api.encoding.codecConfigurations.AACAudioConfig;
 import com.bitmovin.api.encoding.codecConfigurations.H264VideoConfiguration;
@@ -18,14 +18,17 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
+/**
+ * A classe
+ *
+ *
+ */
+
+
 public class EncoderConfigurationService {
 
     private final BitmovinApi bitmovinApi;
 
-    private boolean shouldCreateInput;
-    private boolean shouldCreateOutput;
-    private boolean shouldCreateVideoConfig;
-    private boolean shouldCreateAudioConfig;
 
     private String inputId;
     private String outputId;
@@ -106,8 +109,8 @@ public class EncoderConfigurationService {
     private String createOutput() throws URISyntaxException, BitmovinApiException, UnirestException, IOException {
         S3Output output = new S3Output();
 
-        output.setAccessKey(AmazonS3Service.ACCESS_KEY);
-        output.setSecretKey(AmazonS3Service.SECRET);
+        output.setAccessKey(AmazonS3Service.AWS_ACCESS_KEY);
+        output.setSecretKey(AmazonS3Service.AWS_SECRET);
         output.setBucketName(BucketsEnum.OUTPUT_BUCKET.bucketName);
         output = bitmovinApi.output.s3.create(output);
         return output.getId();

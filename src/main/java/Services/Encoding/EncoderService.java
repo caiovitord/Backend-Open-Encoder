@@ -28,6 +28,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+* Classe que acessa o serviço de encoding da BITMOVIN
+*
+* Os seus métodos acessam a API Bitmovin e é responsável por construir todos os inputs, outputs,
+* objetos de streaming e muxin de video e audio bem como requisitar o processo de encoding em si.
+*
+* Além disso, a classe possui um método para retornar o progresso
+* atual de um encoding em execução.
+* */
 public class EncoderService {
 
     private final BitmovinApi bitmovinApi;
@@ -38,11 +47,12 @@ public class EncoderService {
     private final String audioConfigId;
     private final ArrayList<AclEntry> aclEntries;
 
+    private final String BITMOVIN_API_KEY = "91e8346c-a81c-4f09-b5cc-3b246f80e87d";
 
     private final VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSourceSingleton.getInstance().getEntityManager());
 
     public EncoderService() throws IOException {
-        bitmovinApi = new BitmovinApi("91e8346c-a81c-4f09-b5cc-3b246f80e87d");
+        bitmovinApi = new BitmovinApi(BITMOVIN_API_KEY);
         EncoderConfigurationService config = new EncoderConfigurationService(bitmovinApi);
 
         this.inputId = config.getInputId();
@@ -54,7 +64,6 @@ public class EncoderService {
         aclEntry.setPermission(AclPermission.PUBLIC_READ);
         aclEntries = new ArrayList<AclEntry>();
         aclEntries.add(aclEntry);
-
     }
 
     public VideoEncodingRequest encode(String inputFile) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
@@ -143,8 +152,10 @@ public class EncoderService {
 
         fmpAudio4Muxing = bitmovinApi.encoding.muxing.addFmp4MuxingToEncoding(encoding, fmpAudio4Muxing);
 
-        List<Message> msg = bitmovinApi.encoding.start(encoding);
+        bitmovinApi.encoding.start(encoding);
 
+
+        //Sallva o objeto de VideoEncodingRequest
         VideoEncodingRequest request = new VideoEncodingRequest(
                 encoding.getId(),
                 outputPath,
@@ -207,7 +218,7 @@ public class EncoderService {
     }
 
 
-    public Task getStatusAndProgressOfEncoding(String encodingId) throws URISyntaxException, BitmovinApiException, RestException, UnirestException, IOException {
+    public Task getEncodingProgressStatus(String encodingId) throws URISyntaxException, BitmovinApiException, RestException, UnirestException, IOException {
         return  bitmovinApi.encoding.getStatus(bitmovinApi.encoding.getDetails(encodingId));
     }
 }

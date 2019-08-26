@@ -4,6 +4,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+
+/*
+* Essa classe, que implementa o Design Pattern Singleton, serve
+* para fornecer uma referência da classe EntityManger.
+*
+* O EntityManger é uma classe da Java Persistence API, e fornece acesso direto
+* aos objetos do banco de dados (realizado nas classes contidas em Persistence.DAO)
+* */
 public class DataSourceSingleton {
 
     private final EntityManagerFactory emf;

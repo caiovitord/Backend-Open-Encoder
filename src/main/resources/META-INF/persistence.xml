@@ -5,13 +5,13 @@
         <provider>com.objectdb.jpa.Provider</provider>
 
 
-        <class>Persistence.Entities.SimpleUser</class>
+
         <class>Persistence.Entities.VideoEncodingRequest</class>
-        <class>Persistence.Entities.VideoFile</class>
+
 
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="database_file.odb"/>
+                      value="server_database.odb"/>
         </properties>
 
 

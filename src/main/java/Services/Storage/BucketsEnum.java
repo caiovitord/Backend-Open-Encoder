@@ -1,11 +1,14 @@
-package Persistence;
+package Services.Storage;
 
+/**
+ * Classe que serve como uma enumeração simples
+ * para buckets de entrada e saída
+ */
 public enum BucketsEnum {
-    INPUT_BUCKET("open-encoder-input"),
-    OUTPUT_BUCKET("open-encoder-output");
+    INPUT_BUCKET(AmazonS3Service.AWS_INPUT_BUCKET_NAME),
+    OUTPUT_BUCKET(AmazonS3Service.AWS_OUTPUT_BUCKET_NAME);
 
     public final String bucketName;
-
     public final String bucketHost;
 
     BucketsEnum(String bucketName) {

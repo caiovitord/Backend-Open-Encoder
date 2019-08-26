@@ -4,6 +4,24 @@ import javax.persistence.EntityManager;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+/**
+* DAO é uma Design Pattern, Data Access Object ou Objeto de acesso a dados.
+*
+* Essa é a Classe genérica de acesso ao banco de dados.
+* Essa classe utiliza a Java Persistence API para poder
+ * acessar os objetos guardados no arquivo de banco de dados.
+ *
+ * O arquivo de banco de dados é gerenciado pela biblioteca ObjectDB.
+ * A sua configuração é definida no arquivo /resources/META-INF/persistence.xml
+ *
+ * A utilização da Java Persistence API junto com o ObecjtDB é interessante para uma aplicação simples
+*
+ *
+ *
+* Essa classe executa as operações de CRUD nos objetos.
+*
+ */
+
 public abstract class GenericDAO<E, K> {
 
     protected EntityManager em;
@@ -61,6 +79,5 @@ public abstract class GenericDAO<E, K> {
                         clazz.getSimpleName()
         ).getSingleResult();
     }
-
 
 }
