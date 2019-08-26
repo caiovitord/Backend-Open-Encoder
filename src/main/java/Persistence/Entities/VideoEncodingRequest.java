@@ -12,9 +12,6 @@ public class VideoEncodingRequest {
     private String encodingId;
 
 
-    @ManyToOne
-    private SimpleUser requestingUser;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
@@ -31,6 +28,8 @@ public class VideoEncodingRequest {
 
     @NotNull
     private boolean createdManifest;
+
+    private String generatedVideoLink;
 
     public VideoEncodingRequest(String encodingId, String outputPath, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId, boolean createdManifest) {
         this.encodingId = encodingId;
@@ -105,4 +104,14 @@ public class VideoEncodingRequest {
     public void setCreatedManifest(boolean createdManifest) {
         this.createdManifest = createdManifest;
     }
+
+    public String getGeneratedVideoLink() {
+        return generatedVideoLink;
+    }
+
+    public void setGeneratedVideoLink(String generatedVideoLink) {
+        this.generatedVideoLink = generatedVideoLink;
+    }
+
+
 }

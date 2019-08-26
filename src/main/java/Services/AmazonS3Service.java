@@ -52,7 +52,7 @@ public class AmazonS3Service {
         if(bucket == BucketsEnum.INPUT_BUCKET)
             return "https://open-encoder-input.s3.amazonaws.com/" + fileName;
         else
-            return "https://open-encoder-output.s3.amazonaws.com/" + fileName;
+            return "https://open-encoder-output.s3.amazonaws.com/" + fileName + "/manifest.m3u8";
     }
 
 }

@@ -4,17 +4,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class DataSource {
+public class DataSourceSingleton {
 
     private final EntityManagerFactory emf;
 
-    private DataSource(){
+    private DataSourceSingleton(){
         emf = Persistence.createEntityManagerFactory("unidade_persistencia_odb");
     }
 
-    public static DataSource instance = new DataSource();
+    public static DataSourceSingleton instance = new DataSourceSingleton();
 
-    public static DataSource getInstance(){
+    public static DataSourceSingleton getInstance(){
         return instance;
     }
 

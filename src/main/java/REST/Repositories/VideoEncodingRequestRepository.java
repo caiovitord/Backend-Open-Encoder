@@ -2,8 +2,7 @@ package REST.Repositories;
 
 
 import Persistence.DAO.VideoEncodingRequestDAO;
-import Persistence.DataSource;
-import Persistence.Entities.SimpleUser;
+import Persistence.DataSourceSingleton;
 import Persistence.Entities.VideoEncodingRequest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,7 @@ import java.util.Optional;
 public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodingRequest, String> {
 
 
-    VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSource.getInstance().getEntityManager());
+    VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSourceSingleton.getInstance().getEntityManager());
 
     @Override
     public Optional<VideoEncodingRequest> findById(String s) {

@@ -1,35 +1,27 @@
 package Services.Encoding;
 
-import Persistence.BucketsEnum;
 import Persistence.DAO.VideoEncodingRequestDAO;
-import Persistence.DataSource;
+import Persistence.DataSourceSingleton;
 import Persistence.Entities.VideoEncodingRequest;
-import Services.AmazonS3Service;
 import com.bitmovin.api.BitmovinApi;
 import com.bitmovin.api.encoding.AclEntry;
 import com.bitmovin.api.encoding.AclPermission;
 import com.bitmovin.api.encoding.EncodingOutput;
 import com.bitmovin.api.encoding.InputStream;
-import com.bitmovin.api.encoding.codecConfigurations.AACAudioConfig;
-import com.bitmovin.api.encoding.codecConfigurations.H264VideoConfiguration;
-import com.bitmovin.api.encoding.codecConfigurations.enums.ProfileH264;
 import com.bitmovin.api.encoding.encodings.Encoding;
 import com.bitmovin.api.encoding.encodings.muxing.FMP4Muxing;
 import com.bitmovin.api.encoding.encodings.muxing.MuxingStream;
 import com.bitmovin.api.encoding.encodings.streams.Stream;
 import com.bitmovin.api.encoding.enums.CloudRegion;
 import com.bitmovin.api.encoding.enums.StreamSelectionMode;
-import com.bitmovin.api.encoding.inputs.HttpsInput;
 import com.bitmovin.api.encoding.manifest.hls.AudioMediaInfo;
 import com.bitmovin.api.encoding.manifest.hls.HlsManifest;
 import com.bitmovin.api.encoding.manifest.hls.StreamInfo;
-import com.bitmovin.api.encoding.outputs.S3Output;
 import com.bitmovin.api.encoding.status.Message;
 import com.bitmovin.api.encoding.status.Task;
 import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.bitmovin.api.http.RestException;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -47,7 +39,7 @@ public class EncoderService {
     private final ArrayList<AclEntry> aclEntries;
 
 
-    private final VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSource.getInstance().getEntityManager());
+    private final VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSourceSingleton.getInstance().getEntityManager());
 
     public EncoderService() throws IOException {
         bitmovinApi = new BitmovinApi("91e8346c-a81c-4f09-b5cc-3b246f80e87d");
