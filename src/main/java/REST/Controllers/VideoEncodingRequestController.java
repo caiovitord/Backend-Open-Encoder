@@ -47,16 +47,16 @@ public class VideoEncodingRequestController {
     ResponseEntity startEncodingProcess(@RequestBody String fileName) {
         System.out.println("POST /encoder " + fileName);
 
-        VideoEncodingRequest request;
+        VideoEncodingRequest videoEncodingRequest;
         try {
-            request = encoderService.encode(fileName);
+            videoEncodingRequest = encoderService.encode(fileName);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
-        if (request != null)
-            return ResponseEntity.ok().body(request);
+        if (videoEncodingRequest != null)
+            return ResponseEntity.ok().body(videoEncodingRequest);
         else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
@@ -65,10 +65,10 @@ public class VideoEncodingRequestController {
     ResponseEntity<Task> checkEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("GET /encodings/{id} " + encodingId);
 
-        Optional<VideoEncodingRequest> request = repository.findById((encodingId));
-        if (request.isPresent())
+        Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
+        if (videoEncodingRequest.isPresent())
             return ResponseEntity.ok().body(
-                    this.encoderService.getEncodingProgressStatus(request.get().getEncodingId())
+                    this.encoderService.getEncodingProgressStatus(videoEncodingRequest.get().getEncodingId())
             );
         else return ResponseEntity.notFound().build();
     }
@@ -79,16 +79,33 @@ public class VideoEncodingRequestController {
     ResponseEntity<String> createManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("POST /api/v1/encodings/{id}/manifest " + encodingId);
 
-        Optional<VideoEncodingRequest> request = repository.findById((encodingId));
-        if (request.isPresent()) {
-            if (!request.get().createdManifest())
-                encoderService.createManifest(request.get());
+        Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
+        if (videoEncodingRequest.isPresent()) {
+            if (!videoEncodingRequest.get().createdManifest())
+                encoderService.createManifest(videoEncodingRequest.get());
 
             return ResponseEntity.ok().body(
-                    amazonS3Service.getFileUrl(BucketsEnum.OUTPUT_BUCKET, request.get().getOutputPath())
+                    amazonS3Service.getFileUrl(BucketsEnum.OUTPUT_BUCKET, videoEncodingRequest.get().getOutputPath())
             );
         } else return ResponseEntity.notFound().build();
     }
+
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/api/v1/encodings/{encodingId}/")
+    ResponseEntity deleteEncoding(@PathVariable String encodingId) {
+        System.out.println("DELETE /api/v1/encodings/{id} " + encodingId);
+
+        Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
+        if (videoEncodingRequest.isPresent()) {
+
+            repository.deleteById(videoEncodingRequest.get().getEncodingId());
+
+            return ResponseEntity.noContent().build();
+        } else return ResponseEntity.notFound().build();
+    }
+
+
 
 
 
