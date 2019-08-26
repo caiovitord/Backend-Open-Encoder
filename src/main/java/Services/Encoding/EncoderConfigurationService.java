@@ -19,8 +19,18 @@ import java.net.URISyntaxException;
 import java.util.Scanner;
 
 /**
- * A classe
+ * A classe abaixo é responsável por criar e reutilizar as configurações
+ * de encoding. Essas configurações são indispensáveis para realizar o encoding correto.
  *
+ * A classe salva em um arquivo, os Identificadores dos objetos de configuração.
+ * Esses objetos de configuração são mantidos pela API da bitmovin, essa classe só possui
+ * a reponsabilidade de manter registro das configurações que já foram criadas, evitando que
+ * sejam utilizados recursos desnecessários da API bitmovin.
+ *
+ * A classe salva em um arquivo os Ids.
+ * Quando instanciada, ela tenta buscar esses ids, em caso de falha, ela cria os objetos
+ * de configuração, por meio do acesso com a API bitmovin, e depois guarda os dados no arquivo
+ * para ser usado posteriormente.
  *
  */
 
@@ -54,6 +64,7 @@ public class EncoderConfigurationService {
 
     private void retrieveConfigurationFile() throws BitmovinApiException, UnirestException, IOException, URISyntaxException {
         try {
+            //Busca os Ids nos arquivos
             Scanner sc = new Scanner(new File("bitmovinConfig.ini"));
 
             inputId = sc.nextLine();
@@ -68,6 +79,7 @@ public class EncoderConfigurationService {
             System.out.println("audioConfigId " +  audioConfigId);
 
         } catch (FileNotFoundException e) {
+            //Em caso de falha, cria os objetos com a API
             System.out.println("Failed. Config file does not exists");
             System.out.println("Trying to create new config file");
 
@@ -83,6 +95,7 @@ public class EncoderConfigurationService {
             System.out.println("videoConfigId " + videoConfigId);
             System.out.println("audioConfigId " +  audioConfigId);
 
+            //Salva os Ids dos objetos de configuração criados.
             this.writeConfigurationToFile();
         }
     }

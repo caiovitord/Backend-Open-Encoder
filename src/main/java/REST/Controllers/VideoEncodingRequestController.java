@@ -19,6 +19,17 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
+
+/**
+ * Essa classe é um controller Spring.
+ * Ela é responsável por criar os endpoints de encoding da API.
+ *
+ * Os seus métodos (mapeados em endpoints da API) são responsáveis por
+ * criar uma nova requisição de encoding baseado no nome do arquivo,
+ * obter informações sobre um encoding, bem como solicitar a geração do arquivo
+ * manifest e deletar um encoding.
+ *
+ */
 @RestController
 public class VideoEncodingRequestController {
 
@@ -30,8 +41,9 @@ public class VideoEncodingRequestController {
     public VideoEncodingRequestController() throws IOException {
     }
 
+
     @CrossOrigin(origins = "*")
-    @PostMapping("/encoder")
+    @PostMapping("/api/v1/encodings")
     ResponseEntity startEncodingProcess(@RequestBody String fileName) {
         System.out.println("POST /encoder " + fileName);
 
@@ -49,9 +61,9 @@ public class VideoEncodingRequestController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/encoder/{encodingId}")
+    @GetMapping("/api/v1/encodings/{encodingId}")
     ResponseEntity<Task> checkEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
-        System.out.println("GET /encoder/{id} " + encodingId);
+        System.out.println("GET /encodings/{id} " + encodingId);
 
         Optional<VideoEncodingRequest> request = repository.findById((encodingId));
         if (request.isPresent())
@@ -62,10 +74,10 @@ public class VideoEncodingRequestController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/encoder/{encodingId}/manifest")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/api/v1/encodings/{encodingId}/manifest")
     ResponseEntity<String> createManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
-        System.out.println("POST /encoder/{id}/create-manifest " + encodingId);
+        System.out.println("POST /api/v1/encodings/{id}/manifest " + encodingId);
 
         Optional<VideoEncodingRequest> request = repository.findById((encodingId));
         if (request.isPresent()) {
@@ -77,5 +89,8 @@ public class VideoEncodingRequestController {
             );
         } else return ResponseEntity.notFound().build();
     }
+
+
+
 
 }

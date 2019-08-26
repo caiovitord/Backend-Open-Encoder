@@ -3,6 +3,8 @@ package Services.Storage;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -26,10 +28,14 @@ public class AmazonS3Service {
     public static final String AWS_INPUT_BUCKET_NAME = "open-encoder-input";
     public static final String AWS_OUTPUT_BUCKET_NAME = "open-encoder-output";
 
+
     public static final String AWS_ACCESS_KEY = "AKIAX4GJZQVTXHFJZVOI";
     public static final String AWS_SECRET = "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";
 
     private AmazonS3Service(){
+
+        Regions AWS_BUCKET_REGION = Regions.US_EAST_1;
+
         AWSCredentials credentials = new BasicAWSCredentials(
                 AWS_ACCESS_KEY,
                 AWS_SECRET
@@ -38,7 +44,7 @@ public class AmazonS3Service {
         s3client = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                //.withRegion(Regions.US_EAST_1)
+                .withRegion(AWS_BUCKET_REGION)
                 .build();
     }
 

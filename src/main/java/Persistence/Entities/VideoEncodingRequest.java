@@ -7,8 +7,8 @@ import java.sql.Date;
 
 
 /**
-* Objeto de entidade.
-* Este objeto guarda todos os dados necessários para buscar os vídeos após o encoding.
+* Classe de entidade.
+* Esta Classse guarda todos os dados necessários para buscar os vídeos após o encoding.
 * */
 @Entity
 public class VideoEncodingRequest {

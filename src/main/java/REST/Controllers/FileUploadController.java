@@ -1,13 +1,22 @@
 package REST.Controllers;
 
 import Services.Storage.StorageService;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+/**
+ * Classe Spring Controller
+ *
+ * Essa classe serve para criar um endpoint na API rest.
+ *
+ * O endpoint criado por essa classe é responsável por receber um arquivo
+ * por meio de uma requisição POST, e utiliza o StorageService para enviar
+ * o arquivo para a AWS S3.
+ * Este arquivo servirá posteriormente como input do encoding.
+ */
 @Controller
 public class FileUploadController {
 
@@ -18,7 +27,7 @@ public class FileUploadController {
 
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/file")
+    @PostMapping("/files/upload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
         return ResponseEntity
