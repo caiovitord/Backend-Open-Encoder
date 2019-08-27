@@ -32,8 +32,7 @@ public class FileUploadController {
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
         return ResponseEntity
-                .ok()
-                .header("Content-Type"," text/html; charset=utf-8" )
+                .ok().header("Content-Type"," text/html; charset=utf-8" )
                 .body( storageService.store(file));
     }
 

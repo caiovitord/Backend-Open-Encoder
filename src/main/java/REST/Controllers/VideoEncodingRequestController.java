@@ -48,7 +48,7 @@ public class VideoEncodingRequestController {
 
     @PostMapping("/api/v1/encodings")
     ResponseEntity startEncodingProcess(@RequestBody Map<String, Object> payload) {
-        System.out.println("POST /encoder " + payload.get("fileName").toString() + " " +  payload.get("encodingQuality").toString());
+        System.out.println("POST /encodings " + payload.get("fileName").toString() + " " +  payload.get("encodingQuality").toString());
 
         String fileName = payload.get("fileName").toString();
         String encodingQualityStr = payload.get("encodingQuality").toString();
