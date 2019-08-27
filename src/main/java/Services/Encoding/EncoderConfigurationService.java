@@ -21,17 +21,16 @@ import java.util.Scanner;
 /**
  * A classe abaixo é responsável por criar e reutilizar as configurações
  * de encoding. Essas configurações são indispensáveis para realizar o encoding correto.
- *
+ * <p>
  * A classe salva em um arquivo, os Identificadores dos objetos de configuração.
  * Esses objetos de configuração são mantidos pela API da bitmovin, essa classe só possui
  * a reponsabilidade de manter registro das configurações que já foram criadas, evitando que
  * sejam utilizados recursos desnecessários da API bitmovin.
- *
+ * <p>
  * A classe salva em um arquivo os Ids.
  * Quando instanciada, ela tenta buscar esses ids, em caso de falha, ela cria os objetos
  * de configuração, por meio do acesso com a API bitmovin, e depois guarda os dados no arquivo
  * para ser usado posteriormente.
- *
  */
 
 
@@ -42,7 +41,9 @@ public class EncoderConfigurationService {
 
     private String inputId;
     private String outputId;
-    private String videoConfigId;
+    private String lowVideoConfigId;
+    private String mediumVideoConfigId;
+    private String highVideoConfigId;
     private String audioConfigId;
 
     public EncoderConfigurationService(BitmovinApi bitmovinApi) {
@@ -69,14 +70,18 @@ public class EncoderConfigurationService {
 
             inputId = sc.nextLine();
             outputId = sc.nextLine();
-            videoConfigId = sc.nextLine();
+            lowVideoConfigId = sc.nextLine();
             audioConfigId = sc.nextLine();
+            mediumVideoConfigId = sc.nextLine();
+            highVideoConfigId = sc.nextLine();
 
             System.out.println("Retrieved config file. Check out the ids");
-            System.out.println("InputId " +  inputId);
+            System.out.println("InputId " + inputId);
             System.out.println("outputId " + outputId);
-            System.out.println("videoConfigId " + videoConfigId);
-            System.out.println("audioConfigId " +  audioConfigId);
+            System.out.println("lowVideoConfigId " + lowVideoConfigId);
+            System.out.println("highVideoConfigId " + highVideoConfigId);
+            System.out.println("mediumVideoConfigId " + mediumVideoConfigId);
+            System.out.println("audioConfigId " + audioConfigId);
 
         } catch (FileNotFoundException e) {
             //Em caso de falha, cria os objetos com a API
@@ -85,15 +90,19 @@ public class EncoderConfigurationService {
 
             inputId = this.createInput();
             outputId = this.createOutput();
-            videoConfigId = this.createVideoConfig(VideoConfigurationEnum.LOW);
+            lowVideoConfigId = this.createVideoConfig(VideoConfigurationEnum.LOW);
+            mediumVideoConfigId = this.createVideoConfig(VideoConfigurationEnum.MEDIUM);
+            highVideoConfigId = this.createVideoConfig(VideoConfigurationEnum.HIGH);
             audioConfigId = this.createAudioConfig();
 
 
             System.out.println("Created resources: Checkout the IDS:");
-            System.out.println("InputId " +  inputId);
+            System.out.println("InputId " + inputId);
             System.out.println("outputId " + outputId);
-            System.out.println("videoConfigId " + videoConfigId);
-            System.out.println("audioConfigId " +  audioConfigId);
+            System.out.println("videoConfigId " + lowVideoConfigId);
+            System.out.println("audioConfigId " + audioConfigId);
+            System.out.println("highVideoConfigId " + highVideoConfigId);
+            System.out.println("mediumVideoConfigId " + mediumVideoConfigId);
 
             //Salva os Ids dos objetos de configuração criados.
             this.writeConfigurationToFile();
@@ -106,8 +115,10 @@ public class EncoderConfigurationService {
 
             fw.write(inputId + "\n");
             fw.write(outputId + "\n");
-            fw.write(videoConfigId + "\n");
-            fw.write(audioConfigId);
+            fw.write(lowVideoConfigId + "\n");
+            fw.write(audioConfigId + "\n");
+            fw.write(mediumVideoConfigId + "\n");
+            fw.write(highVideoConfigId);
 
             fw.flush();
             fw.close();
@@ -146,19 +157,31 @@ public class EncoderConfigurationService {
     }
 
     private String createVideoConfig(VideoConfigurationEnum vconf) throws URISyntaxException, BitmovinApiException, UnirestException, IOException {
-        if (vconf == VideoConfigurationEnum.LOW) {
-            //Video codec config
-            H264VideoConfiguration videoCodecConfig = new H264VideoConfiguration();
-
-            videoCodecConfig.setName("Standart LOW H264 Codec Config");
-            videoCodecConfig.setBitrate(375000L);
-            videoCodecConfig.setWidth(384);
-            videoCodecConfig.setProfile(ProfileH264.HIGH);
-
-            videoCodecConfig = bitmovinApi.configuration.videoH264.create(videoCodecConfig);
-            return videoCodecConfig.getId();
+        H264VideoConfiguration videoCodecConfig = new H264VideoConfiguration();
+        switch (vconf) {
+            case LOW:
+                videoCodecConfig.setName("LOW H264 Codec Config");
+                videoCodecConfig.setBitrate(375000L);
+                videoCodecConfig.setWidth(384);
+                videoCodecConfig.setProfile(ProfileH264.HIGH);
+                break;
+            case MEDIUM:
+                videoCodecConfig.setName("Getting Started H264 Codec Config 3");
+                videoCodecConfig.setBitrate(750000L);
+                videoCodecConfig.setWidth(640);
+                videoCodecConfig.setProfile(ProfileH264.HIGH);
+                break;
+            case HIGH:
+                videoCodecConfig.setName("HIGH H264 Codec Config");
+                videoCodecConfig.setBitrate(1500000L);
+                videoCodecConfig.setWidth(1024);
+                break;
+            default:
+                throw new IllegalStateException();
         }
-        throw new IllegalStateException();
+        videoCodecConfig.setProfile(ProfileH264.HIGH);
+        videoCodecConfig = bitmovinApi.configuration.videoH264.create(videoCodecConfig);
+        return videoCodecConfig.getId();
     }
 
 
@@ -176,7 +199,7 @@ public class EncoderConfigurationService {
 
     String getVideoConfigId(VideoConfigurationEnum vconf) {
         if (vconf == VideoConfigurationEnum.LOW) {
-            return this.videoConfigId;
+            return this.lowVideoConfigId;
         }
         throw new IllegalStateException();
     }

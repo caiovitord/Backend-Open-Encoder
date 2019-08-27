@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,12 +25,13 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
         return Optional.ofNullable(videoEncodingRequestDAO.find(s));
     }
 
+
+
+
     @Override
-    public void deleteById(String id) {
-        videoEncodingRequestDAO.deleteByKey(id);
+    public void delete(VideoEncodingRequest request) {
+        videoEncodingRequestDAO.delete(request);
     }
-
-
 
     @Override
     public List<VideoEncodingRequest> findAll() {
@@ -39,12 +39,16 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
     }
 
 
-    /*
+    /**
      *
      * Operações não implementadas pois não serão usadas na API REST
      *
      */
 
+    @Override
+    public void deleteById(String id) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public long count() {
@@ -79,10 +83,7 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
 
 
 
-    @Override
-    public void delete(VideoEncodingRequest simpleUser) {
-        throw new UnsupportedOperationException();
-    }
+
 
 
     @Override

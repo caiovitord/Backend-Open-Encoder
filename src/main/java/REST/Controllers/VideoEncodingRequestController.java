@@ -90,14 +90,14 @@ public class VideoEncodingRequestController {
     }
 
 
-    @DeleteMapping("/api/v1/encodings/{encodingId}/")
+    @DeleteMapping("/api/v1/encodings/{encodingId}")
     ResponseEntity deleteEncoding(@PathVariable String encodingId) {
         System.out.println("DELETE /api/v1/encodings/{id} " + encodingId);
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
         if (videoEncodingRequest.isPresent()) {
 
-            repository.deleteById(videoEncodingRequest.get().getEncodingId());
+            repository.delete(videoEncodingRequest.get());
 
             return ResponseEntity.noContent().build();
         } else return ResponseEntity.notFound().build();
