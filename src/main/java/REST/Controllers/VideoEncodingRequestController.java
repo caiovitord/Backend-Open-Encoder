@@ -69,8 +69,18 @@ public class VideoEncodingRequestController {
     }
 
     @GetMapping("/api/v1/encodings/{encodingId}")
-    ResponseEntity<Task> checkEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
+    ResponseEntity<VideoEncodingRequest> getEncoding(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("GET /encodings/{id} " + encodingId);
+
+        Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
+        return videoEncodingRequest.map(
+                request -> ResponseEntity.ok().body(request))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/api/v1/encodings/{encodingId}/status")
+    ResponseEntity<Task> checkEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
+        System.out.println("GET /encodings/{id}/status " + encodingId);
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
         if (videoEncodingRequest.isPresent())
