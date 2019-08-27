@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
  * o arquivo para a AWS S3.
  * Este arquivo servirá posteriormente como input do encoding.
  */
-@Controller
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController
 public class FileUploadController {
 
     private final StorageService storageService = new StorageService();
@@ -26,8 +28,7 @@ public class FileUploadController {
     }
 
 
-    @CrossOrigin(origins = "*")
-    @PostMapping("/files/upload")
+    @PostMapping("/api/v1/files/upload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
         return ResponseEntity

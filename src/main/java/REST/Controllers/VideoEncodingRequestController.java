@@ -30,6 +30,8 @@ import java.util.Optional;
  * manifest e deletar um encoding.
  *
  */
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class VideoEncodingRequestController {
 
@@ -42,7 +44,6 @@ public class VideoEncodingRequestController {
     }
 
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/api/v1/encodings")
     ResponseEntity startEncodingProcess(@RequestBody String fileName) {
         System.out.println("POST /encoder " + fileName);
@@ -60,7 +61,6 @@ public class VideoEncodingRequestController {
         else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/api/v1/encodings/{encodingId}")
     ResponseEntity<Task> checkEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("GET /encodings/{id} " + encodingId);
@@ -74,7 +74,6 @@ public class VideoEncodingRequestController {
     }
 
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/api/v1/encodings/{encodingId}/manifest")
     ResponseEntity<String> createManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("POST /api/v1/encodings/{id}/manifest " + encodingId);
@@ -91,7 +90,6 @@ public class VideoEncodingRequestController {
     }
 
 
-    @CrossOrigin(origins = "*")
     @DeleteMapping("/api/v1/encodings/{encodingId}/")
     ResponseEntity deleteEncoding(@PathVariable String encodingId) {
         System.out.println("DELETE /api/v1/encodings/{id} " + encodingId);

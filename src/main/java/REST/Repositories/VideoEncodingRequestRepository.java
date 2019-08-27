@@ -23,7 +23,7 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
 
     @Override
     public Optional<VideoEncodingRequest> findById(String s) {
-        return Optional.of(videoEncodingRequestDAO.find(s));
+        return Optional.ofNullable(videoEncodingRequestDAO.find(s));
     }
 
     @Override
