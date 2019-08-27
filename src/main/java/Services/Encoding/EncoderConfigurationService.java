@@ -21,12 +21,12 @@ import java.util.Scanner;
 /**
  * A classe abaixo é responsável por criar e reutilizar as configurações
  * de encoding. Essas configurações são indispensáveis para realizar o encoding correto.
- * <p>
+ *
  * A classe salva em um arquivo, os Identificadores dos objetos de configuração.
  * Esses objetos de configuração são mantidos pela API da bitmovin, essa classe só possui
  * a reponsabilidade de manter registro das configurações que já foram criadas, evitando que
  * sejam utilizados recursos desnecessários da API bitmovin.
- * <p>
+ *
  * A classe salva em um arquivo os Ids.
  * Quando instanciada, ela tenta buscar esses ids, em caso de falha, ela cria os objetos
  * de configuração, por meio do acesso com a API bitmovin, e depois guarda os dados no arquivo

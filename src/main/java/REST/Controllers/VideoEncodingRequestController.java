@@ -51,7 +51,7 @@ public class VideoEncodingRequestController {
         System.out.println("POST /encoder " + payload.get("fileName").toString() + " " +  payload.get("encodingQuality").toString());
 
         String fileName = payload.get("fileName").toString();
-        String encodingQualityStr = payload.get("fileName").toString();
+        String encodingQualityStr = payload.get("encodingQuality").toString();
 
         VideoConfigurationEnum encodingQuality = VideoConfigurationEnum.valueOf(encodingQualityStr);
 

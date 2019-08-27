@@ -1,5 +1,7 @@
 package Persistence.Entities;
 
+import Services.Encoding.VideoConfigurationEnum;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -30,6 +32,8 @@ public class VideoEncodingRequest {
     @NotNull
     private String videoMuxinId;
 
+    @Enumerated(EnumType.STRING)
+    private VideoConfigurationEnum encodingQuality;
 
     @NotNull
     private boolean createdManifest;
@@ -37,7 +41,7 @@ public class VideoEncodingRequest {
 
     private String generatedVideoLink;
 
-    public VideoEncodingRequest(String encodingId, String outputPath, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId, boolean createdManifest) {
+    public VideoEncodingRequest(String encodingId, String outputPath, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId, boolean createdManifest, VideoConfigurationEnum vconf) {
         this.encodingId = encodingId;
         this.outputPath = outputPath;
         this.audioStreamId = audioStreamId;
@@ -46,6 +50,7 @@ public class VideoEncodingRequest {
         this.videoMuxinId = videoMuxinId;
         this.createdManifest = createdManifest;
         this.createdAt = new Date(new java.util.Date().getTime());
+        this.encodingQuality = vconf;
     }
 
 
@@ -123,5 +128,11 @@ public class VideoEncodingRequest {
         this.generatedVideoLink = generatedVideoLink;
     }
 
+    public VideoConfigurationEnum getEncodingQuality() {
+        return encodingQuality;
+    }
 
+    public void setEncodingQuality(VideoConfigurationEnum encodingQuality) {
+        this.encodingQuality = encodingQuality;
+    }
 }

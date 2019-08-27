@@ -28,10 +28,10 @@ import java.util.ArrayList;
 
 /**
  * Classe que acessa o serviço de encoding da BITMOVIN
- * <p>
+ *
  * Os seus métodos acessam a API Bitmovin e é responsável por construir todos os inputs, outputs,
  * objetos de streaming e muxin de video e audio bem como requisitar o processo de encoding em si.
- * <p>
+ *
  * Além disso, a classe possui um método para retornar o progresso
  * atual de um encoding em execução.
  */
@@ -183,7 +183,8 @@ public class EncoderService {
                 fmpAudio4Muxing.getId(),
                 streamVideo.getId(),
                 videoMuxing.getId(),
-                false
+                false,
+                encodingQuality
         );
 
         videoEncodingRequestDAO.create(request);
@@ -223,7 +224,7 @@ public class EncoderService {
         StreamInfo streamInfo = new StreamInfo();
         streamInfo.setAudio("audio_group");
         streamInfo.setClosedCaptions("NONE");
-        streamInfo.setSegmentPath("video/384_375000/fmp4");
+        streamInfo.setSegmentPath("video/"+request.getEncodingQuality().resolution+"_"+request.getEncodingQuality().bitrate+"/fmp4");
         streamInfo.setUri("video.m3u8");
         streamInfo.setEncodingId(request.getEncodingId());
         streamInfo.setStreamId(request.getStreamVideoId());
