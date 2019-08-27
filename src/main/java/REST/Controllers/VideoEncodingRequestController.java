@@ -80,6 +80,16 @@ public class VideoEncodingRequestController {
         else return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/api/v1/encodings/{encodingId}/link")
+    ResponseEntity<String> getEncodingLink(@PathVariable String encodingId){
+        System.out.println("GET /encodings/{id} " + encodingId);
+
+        Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
+        if (videoEncodingRequest.isPresent())
+            return ResponseEntity.ok().body(amazonS3Service.getFileUrl(BucketsEnum.OUTPUT_BUCKET, encodingId));
+        else return ResponseEntity.notFound().build();
+    }
+
 
     @PostMapping("/api/v1/encodings/{encodingId}/manifest")
     ResponseEntity<String> createManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {

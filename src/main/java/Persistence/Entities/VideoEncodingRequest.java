@@ -39,7 +39,6 @@ public class VideoEncodingRequest {
     private boolean createdManifest;
 
 
-    private String generatedVideoLink;
 
     public VideoEncodingRequest(String encodingId, String outputPath, String audioStreamId, String fmp4AudioMuxinId, String streamVideoId, String videoMuxinId, boolean createdManifest, VideoConfigurationEnum vconf) {
         this.encodingId = encodingId;
@@ -120,13 +119,7 @@ public class VideoEncodingRequest {
         this.createdManifest = createdManifest;
     }
 
-    public String getGeneratedVideoLink() {
-        return generatedVideoLink;
-    }
 
-    public void setGeneratedVideoLink(String generatedVideoLink) {
-        this.generatedVideoLink = generatedVideoLink;
-    }
 
     public VideoConfigurationEnum getEncodingQuality() {
         return encodingQuality;
