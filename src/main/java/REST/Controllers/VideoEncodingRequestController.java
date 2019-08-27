@@ -1,6 +1,7 @@
 package REST.Controllers;
 
 import REST.Repositories.VideoEncodingRequestRepository;
+import Services.Encoding.VideoConfigurationEnum;
 import Services.Storage.BucketsEnum;
 import Persistence.DAO.VideoEncodingRequestDAO;
 import Persistence.DataSourceSingleton;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -45,12 +47,17 @@ public class VideoEncodingRequestController {
 
 
     @PostMapping("/api/v1/encodings")
-    ResponseEntity startEncodingProcess(@RequestBody String fileName) {
-        System.out.println("POST /encoder " + fileName);
+    ResponseEntity startEncodingProcess(@RequestBody Map<String, Object> payload) {
+        System.out.println("POST /encoder " + payload.get("fileName").toString() + " " +  payload.get("encodingQuality").toString());
+
+        String fileName = payload.get("fileName").toString();
+        String encodingQualityStr = payload.get("fileName").toString();
+
+        VideoConfigurationEnum encodingQuality = VideoConfigurationEnum.valueOf(encodingQualityStr);
 
         VideoEncodingRequest videoEncodingRequest;
         try {
-            videoEncodingRequest = encoderService.encode(fileName);
+            videoEncodingRequest = encoderService.encode(fileName, encodingQuality);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

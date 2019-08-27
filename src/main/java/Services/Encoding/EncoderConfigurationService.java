@@ -83,7 +83,7 @@ public class EncoderConfigurationService {
             System.out.println("mediumVideoConfigId " + mediumVideoConfigId);
             System.out.println("audioConfigId " + audioConfigId);
 
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             //Em caso de falha, cria os objetos com a API
             System.out.println("Failed. Config file does not exists");
             System.out.println("Trying to create new config file");
@@ -198,9 +198,15 @@ public class EncoderConfigurationService {
     }
 
     String getVideoConfigId(VideoConfigurationEnum vconf) {
-        if (vconf == VideoConfigurationEnum.LOW) {
-            return this.lowVideoConfigId;
-        }
-        throw new IllegalStateException();
+       switch (vconf){
+           case MEDIUM:
+               return this.mediumVideoConfigId;
+           case HIGH:
+               return this.highVideoConfigId;
+           case LOW:
+               return this.lowVideoConfigId;
+           default:
+               throw new IllegalStateException();
+       }
     }
 }

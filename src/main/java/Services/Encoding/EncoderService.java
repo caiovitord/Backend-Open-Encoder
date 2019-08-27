@@ -17,7 +17,6 @@ import com.bitmovin.api.encoding.enums.StreamSelectionMode;
 import com.bitmovin.api.encoding.manifest.hls.AudioMediaInfo;
 import com.bitmovin.api.encoding.manifest.hls.HlsManifest;
 import com.bitmovin.api.encoding.manifest.hls.StreamInfo;
-import com.bitmovin.api.encoding.status.Message;
 import com.bitmovin.api.encoding.status.Task;
 import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.bitmovin.api.http.RestException;
@@ -26,25 +25,27 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
-* Classe que acessa o serviço de encoding da BITMOVIN
-*
-* Os seus métodos acessam a API Bitmovin e é responsável por construir todos os inputs, outputs,
-* objetos de streaming e muxin de video e audio bem como requisitar o processo de encoding em si.
-*
-* Além disso, a classe possui um método para retornar o progresso
-* atual de um encoding em execução.
-* */
+ * Classe que acessa o serviço de encoding da BITMOVIN
+ * <p>
+ * Os seus métodos acessam a API Bitmovin e é responsável por construir todos os inputs, outputs,
+ * objetos de streaming e muxin de video e audio bem como requisitar o processo de encoding em si.
+ * <p>
+ * Além disso, a classe possui um método para retornar o progresso
+ * atual de um encoding em execução.
+ */
 public class EncoderService {
 
     private final BitmovinApi bitmovinApi;
 
     private final String inputId;
     private final String outputId;
-    private final String videoConfigId;
+    private final String lowVideoConfigId;
+    private final String mediumVideoConfigId;
+    private final String highVideoConfigId;
     private final String audioConfigId;
+
     private final ArrayList<AclEntry> aclEntries;
 
     private final String BITMOVIN_API_KEY = "91e8346c-a81c-4f09-b5cc-3b246f80e87d";
@@ -57,7 +58,9 @@ public class EncoderService {
 
         this.inputId = config.getInputId();
         this.outputId = config.getOutputId();
-        this.videoConfigId = config.getVideoConfigId(VideoConfigurationEnum.LOW);
+        this.lowVideoConfigId = config.getVideoConfigId(VideoConfigurationEnum.LOW);
+        this.mediumVideoConfigId = config.getVideoConfigId(VideoConfigurationEnum.MEDIUM);
+        this.highVideoConfigId = config.getVideoConfigId(VideoConfigurationEnum.HIGH);
         this.audioConfigId = config.getAudioConfigId();
 
         AclEntry aclEntry = new AclEntry();
@@ -66,11 +69,29 @@ public class EncoderService {
         aclEntries.add(aclEntry);
     }
 
-    public VideoEncodingRequest encode(String inputFile) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
+    public String getConfigurationId(VideoConfigurationEnum vconf) {
+        switch (vconf) {
+            case LOW:
+                return this.lowVideoConfigId;
+            case MEDIUM:
+                return this.mediumVideoConfigId;
+            case HIGH:
+                return this.highVideoConfigId;
+            default:
+                throw new IllegalStateException();
+        }
+    }
+
+    private long serverEncodingNumber = 0;
+
+    public VideoEncodingRequest encode(String inputFile, VideoConfigurationEnum encodingQuality) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
+
+        String actualVideoConfigId = getConfigurationId(encodingQuality);
+
         //Create encoding
         Encoding encoding = new Encoding();
 
-        encoding.setName("Getting Started Encoding");
+        encoding.setName("Server Encoding nro " + serverEncodingNumber++);
         encoding.setCloudRegion(CloudRegion.AWS_US_EAST_1);
         encoding.setEncoderVersion("2.22.0");
 
@@ -87,7 +108,7 @@ public class EncoderService {
         inputStreamVideo1.setInputPath(inputPath);
         inputStreamVideo1.setSelectionMode(StreamSelectionMode.AUTO);
 
-        streamVideo.setCodecConfigId(videoConfigId);
+        streamVideo.setCodecConfigId(actualVideoConfigId);
         streamVideo.addInputStream(inputStreamVideo1);
 
         streamVideo = bitmovinApi.encoding.stream.addStream(encoding, streamVideo);
@@ -107,8 +128,6 @@ public class EncoderService {
         audioStream = bitmovinApi.encoding.stream.addStream(encoding, audioStream);
 
 
-
-
         double segmentLength = 4D;
         String outputPath = "" + System.currentTimeMillis();
         String segmentNaming = "seg_%number%.m4s";
@@ -121,7 +140,8 @@ public class EncoderService {
 
         EncodingOutput videoMuxingOutput = new EncodingOutput();
         videoMuxingOutput.setOutputId(outputId);
-        videoMuxingOutput.setOutputPath(String.format("%s%s", outputPath, "/video/384_375000/fmp4/"));
+        videoMuxingOutput.setOutputPath(String.format("%s%s", outputPath, "/video/" +
+                encodingQuality.resolution + "_" + encodingQuality.bitrate + "/fmp4/"));
         videoMuxingOutput.setAcl(aclEntries);
 
         videoMuxing.setSegmentLength(segmentLength);
@@ -219,6 +239,6 @@ public class EncoderService {
 
 
     public Task getEncodingProgressStatus(String encodingId) throws URISyntaxException, BitmovinApiException, RestException, UnirestException, IOException {
-        return  bitmovinApi.encoding.getStatus(bitmovinApi.encoding.getDetails(encodingId));
+        return bitmovinApi.encoding.getStatus(bitmovinApi.encoding.getDetails(encodingId));
     }
 }
