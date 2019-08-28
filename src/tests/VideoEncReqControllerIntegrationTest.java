@@ -84,10 +84,33 @@ public class VideoEncReqControllerIntegrationTest {
     }
 
     // Após realizar  pedido de encoding, esse teste
+    // cria a requisição para obter esse encoding que acaba de ser criado
+    // É verificado o statusCode, e se todos os dados correspondem
+    @Test
+    public void c_whenGetEncoding_thenShouldReturnStatusOk_AndReturnEncodingJSON() throws Exception {
+        String jsonResponse = this.mockMvc.perform(
+                get("/api/v1/encodings/" + requestResult.get("encodingId")))
+                .andDo(print())
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+
+        HashMap<String,Object> getResult =
+                new ObjectMapper().readValue(jsonResponse, HashMap.class);
+        assertNotNull(requestResult);
+
+        assertEquals(requestResult.get("encodingId").toString(), getResult.get("encodingId").toString());
+        assertEquals(requestResult.get("outputPath").toString(), getResult.get("outputPath").toString());
+        assertEquals(requestResult.get("audioStreamId").toString(), getResult.get("audioStreamId").toString());
+        assertEquals(requestResult.get("fmp4AudioMuxinId").toString(), getResult.get("fmp4AudioMuxinId").toString());
+        assertEquals(requestResult.get("streamVideoId").toString(), getResult.get("streamVideoId").toString());
+        assertEquals(requestResult.get("videoMuxinId").toString(), getResult.get("videoMuxinId").toString());
+        assertEquals(requestResult.get("encodingQuality").toString(), getResult.get("encodingQuality").toString());
+    }
+
+    // Após realizar  pedido de encoding, esse teste
     // cria a requisição para checar o status do encoding.
     // É verificado o statusCode, juntamente com todos os dadosque deveriam estar no JSON de resposta de status.
     @Test
-    public void c_whenGetEncodingStatus_thenShouldReturnStatusOk_AndReturnStatusJSON() throws Exception {
+    public void d_whenGetEncodingStatus_thenShouldReturnStatusOk_AndReturnStatusJSON() throws Exception {
 
 
         String jsonResponse = this.mockMvc.perform(
@@ -106,7 +129,7 @@ public class VideoEncReqControllerIntegrationTest {
     // cria a requisição para solicitar o link do encoding.
     // É verificado o statusCode, e verificado se a string do link é condizente.
     @Test
-    public void d_whenGetLink_thenShouldReturnStatusOk_AndReturnLink() throws Exception {
+    public void e_whenGetLink_thenShouldReturnStatusOk_AndReturnLink() throws Exception {
         String jsonResponse = this.mockMvc.perform(
                 get("/api/v1/encodings/" + requestResult.get("encodingId") + "/link"))
                 .andDo(print())
@@ -116,6 +139,24 @@ public class VideoEncReqControllerIntegrationTest {
         assertThat(jsonResponse, containsString("https://"));
         assertThat(jsonResponse, containsString(".s3.amazonaws.com"));
         assertThat(jsonResponse, containsString("manifest.m3u8"));
+    }
+
+
+    //Esse teste verifica o retorno 404 de todos os endpoints de encoding
+    @Test
+    public void f_whenTryGetWrongEncoding_thenShouldReturnStatus404() throws Exception {
+        this.mockMvc.perform(
+                get("/api/v1/encodings/NAOEXISTE"))
+                .andDo(print())
+                .andExpect(status().is(404));
+        this.mockMvc.perform(
+                get("/api/v1/encodings/NAOEXISTE/link"))
+                .andDo(print())
+                .andExpect(status().is(404));
+        this.mockMvc.perform(
+                get("/api/v1/encodings/NAOEXISTE/status"))
+                .andDo(print())
+                .andExpect(status().is(404));
     }
 
 
