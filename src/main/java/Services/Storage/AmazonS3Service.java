@@ -30,8 +30,8 @@ public class AmazonS3Service {
     static final String AWS_OUTPUT_BUCKET_NAME = AppConfiguration.AWS_OUTPUT_BUCKET_NAME;
 
 
-    static final String AWS_ACCESS_KEY = AppConfiguration.AWS_ACCESS_KEY;
-    static final String AWS_SECRET = AppConfiguration.AWS_SECRET;
+    public static final String AWS_ACCESS_KEY = AppConfiguration.AWS_ACCESS_KEY;
+    public static final String AWS_SECRET = AppConfiguration.AWS_SECRET;
 
     private AmazonS3Service(){
 
