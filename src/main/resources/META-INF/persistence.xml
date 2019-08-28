@@ -4,16 +4,10 @@
         <description>Unidade de persistência ObjectDB</description>
         <provider>com.objectdb.jpa.Provider</provider>
 
-
-
         <class>Persistence.Entities.VideoEncodingRequest</class>
-
-
         <properties>
             <property name="javax.persistence.jdbc.url"
                       value="server_database.odb"/>
         </properties>
-
-
     </persistence-unit>
 </persistence>
