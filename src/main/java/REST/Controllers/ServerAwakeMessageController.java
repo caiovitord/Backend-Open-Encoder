@@ -17,14 +17,14 @@ public class ServerAwakeMessageController {
     public ResponseEntity<String> awakeTime() {
         return ResponseEntity
                 .ok().header("Content-Type"," text/html; charset=utf-8" )
-                .body("Hello! I'm an awake server. I've been working since " + Application.awakeDate);
+                .body("Hello! I'm awake! I've been working since " + Application.awakeDate);
     }
 
     @GetMapping("/")
     public ResponseEntity<String> hello() {
         return ResponseEntity
                 .ok().header("Content-Type"," text/html; charset=utf-8" )
-                .body("Hello!");
+                .body("Hello, I'm here!");
     }
 
 }
