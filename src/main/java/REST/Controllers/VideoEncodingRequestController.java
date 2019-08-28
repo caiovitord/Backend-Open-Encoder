@@ -51,7 +51,7 @@ public class VideoEncodingRequestController {
 
 
     @PostMapping("/api/v1/encodings")
-    ResponseEntity startEncodingProcess(@RequestBody Map<String, Object> payload) {
+    ResponseEntity createEncoding(@RequestBody Map<String, Object> payload) {
         System.out.println("POST /encodings " + payload.get("fileName").toString() + " " +  payload.get("encodingQuality").toString());
 
         String fileName = payload.get("fileName").toString();
@@ -73,7 +73,7 @@ public class VideoEncodingRequestController {
     }
 
     @GetMapping("/api/v1/encodings/{encodingId}")
-    ResponseEntity<VideoEncodingRequest> getEncoding(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
+    ResponseEntity<VideoEncodingRequest> getEncodingById(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("GET /encodings/{id} " + encodingId);
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
@@ -83,7 +83,7 @@ public class VideoEncodingRequestController {
     }
 
     @GetMapping("/api/v1/encodings/{encodingId}/status")
-    ResponseEntity<Task> checkEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
+    ResponseEntity<Task> getEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("GET /encodings/{id}/status " + encodingId);
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
@@ -106,7 +106,7 @@ public class VideoEncodingRequestController {
 
 
     @PostMapping("/api/v1/encodings/{encodingId}/manifest")
-    ResponseEntity<String> createManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
+    ResponseEntity<String> createEncodingManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("POST /api/v1/encodings/{id}/manifest " + encodingId);
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
@@ -122,7 +122,7 @@ public class VideoEncodingRequestController {
 
 
     @DeleteMapping("/api/v1/encodings/{encodingId}")
-    ResponseEntity deleteEncoding(@PathVariable String encodingId) {
+    ResponseEntity deleteEncodingById(@PathVariable String encodingId) {
         System.out.println("DELETE /api/v1/encodings/{id} " + encodingId);
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));

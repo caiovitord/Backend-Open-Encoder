@@ -14,14 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class ServerAwakeMessageController {
 
     @GetMapping("/api/v1/")
-    public ResponseEntity<String> awakeTime() {
+    public ResponseEntity<String> answerServerHelloAndAwakeTime() {
         return ResponseEntity
                 .ok().header("Content-Type"," text/html; charset=utf-8" )
                 .body("Hello! I'm awake! I've been working since " + Application.awakeDate);
     }
 
     @GetMapping("/")
-    public ResponseEntity<String> hello() {
+    public ResponseEntity<String> answerServerHello() {
         return ResponseEntity
                 .ok().header("Content-Type"," text/html; charset=utf-8" )
                 .body("Hello, I'm here!");

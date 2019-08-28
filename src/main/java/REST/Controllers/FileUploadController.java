@@ -28,8 +28,8 @@ public class FileUploadController {
     }
 
 
-    @PostMapping("/api/v1/files/upload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/api/v1/files")
+    public ResponseEntity<String> createFile(@RequestParam("file") MultipartFile file) {
 
         return ResponseEntity
                 .ok().header("Content-Type"," text/html; charset=utf-8" )
