@@ -42,7 +42,7 @@ public class FileUploadControllerIntegrationTest {
     @Test
     public void whenUploadMultipartFile_thenShouldReturnStatusOk() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "JUNIT_test_sample.mkv", MediaType.ALL_VALUE, new FileInputStream("JUNIT_test_sample.mkv"));
-        fileNameResult = this.mockMvc.perform(fileUpload("/api/v1/files/upload").file(file))
+        fileNameResult = this.mockMvc.perform(fileUpload("/api/v1/files").file(file))
                 .andDo(print()).andExpect(content().string(containsString("JUNIT_test_sample.mkv"))).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
     }
