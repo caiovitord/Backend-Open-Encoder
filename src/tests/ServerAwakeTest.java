@@ -1,7 +1,9 @@
 import REST.Application;
 import REST.Controllers.VideoEncodingRequestController;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,16 +20,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ServerAwakeTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    //Testa se os objetos necessários para executar o teste estão nulos
     @Test
     public void whenContexLoads_thenShouldNotBeNull() {
         assertNotNull(mockMvc);
     }
 
+
+    //Testa se o servidor está funcionando, e respondendo a requisições
     @Test
     public void whenTryToContactServer_thenItShouldAnswer() throws Exception {
         this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())

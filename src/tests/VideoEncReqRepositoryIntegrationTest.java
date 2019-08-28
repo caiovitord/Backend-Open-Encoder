@@ -2,8 +2,10 @@ import Persistence.Entities.VideoEncodingRequest;
 import REST.Application;
 import REST.Repositories.VideoEncodingRequestRepository;
 import Services.Encoding.VideoConfigurationEnum;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +22,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class VideoEncReqRepositoryIntegrationTest {
 
     Random random = new Random();
@@ -29,11 +32,16 @@ public class VideoEncReqRepositoryIntegrationTest {
                     Persistence.createEntityManagerFactory("test" + random.nextInt() + ".odb")
                             .createEntityManager());
 
+    //Testa se os objetos necessários para executar o teste estão nulos
     @Test
-    public void contexLoads() {
+    public void a_whenContexLoads_thenShouldNotBeNull() {
         assertNotNull(repository);
     }
 
+
+    //Esse teste salva 10 videoEncodingRequests aleatórios,
+    // e guarda os elementos criados. Depois disso, ele realiza um RETRIEVE
+    // por meio do findAll e verifica se cada um dos dados correspondem entre si
     @Test
     public void whenFindAll_thenReturnAllVideoEncodingRequest() {
         Map<String, VideoEncodingRequest> created = this.randomVideoEncodingRequest(10);
@@ -59,6 +67,9 @@ public class VideoEncReqRepositoryIntegrationTest {
     }
 
 
+    //Esse teste salva 1 videoEncodingRequests aleatório.
+    // Depois disso, ele realiza um RETRIEVE
+    // por meio do findById e verifica se o dado corresponde
     @Test
     public void whenFindById_thenReturnVideoEncodingRequest() {
 
@@ -80,7 +91,9 @@ public class VideoEncReqRepositoryIntegrationTest {
 
 
 
-
+    //Esse teste salva 1 videoEncodingRequests aleatório
+    //Depois disso, ele realiza um RETRIEVE, verifica se o objeto existe
+    //Depois ele deleta o objeto,  e espera que ele não seja mais encontrado
     @Test
     public void whenDelete_thenShouldNotExistVideoEncodingRequest() {
         VideoEncodingRequest videoEncodingRequest = oneRandomVideoEncodingRequest();

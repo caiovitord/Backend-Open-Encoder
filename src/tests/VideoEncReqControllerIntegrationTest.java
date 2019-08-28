@@ -39,7 +39,7 @@ public class VideoEncReqControllerIntegrationTest {
     VideoEncodingRequestController controller;
 
 
-
+    //Testa se os objetos necessários para executar o teste estão nulos
     @Test
     public void a_whenContexLoads_thenShouldNotBeNull() {
         assertNotNull(controller);
@@ -49,6 +49,9 @@ public class VideoEncReqControllerIntegrationTest {
 
     private static HashMap<String,Object> requestResult;
 
+    //Após enviar o arquivo no teste de FileUploadController, esse teste
+    // cria a requisição de encoding. É verificado o statusCode, juntamente com todos os dados
+    // que deveriam estar no JSON de resposta.
     @Test
     public void b_whenUploadMultipartFile_AndCreateEncoding_thenShouldReturnStatusOk_AndReturnJSON() throws Exception {
         assertNotNull(FileUploadControllerIntegrationTest.fileNameResult);
@@ -80,6 +83,9 @@ public class VideoEncReqControllerIntegrationTest {
 
     }
 
+    // Após realizar  pedido de encoding, esse teste
+    // cria a requisição para checar o status do encoding.
+    // É verificado o statusCode, juntamente com todos os dadosque deveriam estar no JSON de resposta de status.
     @Test
     public void c_whenGetEncodingStatus_thenShouldReturnStatusOk_AndReturnStatusJSON() throws Exception {
 
@@ -95,6 +101,10 @@ public class VideoEncReqControllerIntegrationTest {
         assertThat(jsonResponse, containsString("progress"));
     }
 
+
+    // Após realizar  pedido de encoding, esse teste
+    // cria a requisição para solicitar o link do encoding.
+    // É verificado o statusCode, e verificado se a string do link é condizente.
     @Test
     public void d_whenGetLink_thenShouldReturnStatusOk_AndReturnLink() throws Exception {
         String jsonResponse = this.mockMvc.perform(
