@@ -4,21 +4,21 @@ package REST.Repositories;
 import Persistence.DAO.VideoEncodingRequestDAO;
 import Persistence.DataSourceSingleton;
 import Persistence.Entities.VideoEncodingRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe responsável por acessar os objetos VideoEncodingRequest.
+ * Os seus métodos implementam operações CRUD nos objetos
+ */
 @Repository
 public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodingRequest, String> {
 
@@ -54,8 +54,9 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
         videoEncodingRequestDAO = new VideoEncodingRequestDAO(test_persistence_unit);
     }
     /**
-     *
      * Operações não implementadas pois não serão usadas na API REST
+     * A exceção é lançada para garantir que o método não será utilizado
+     * indevidamente, sem ter sido implementado
      *
      */
 

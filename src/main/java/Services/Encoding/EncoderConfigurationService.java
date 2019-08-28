@@ -1,7 +1,7 @@
 package Services.Encoding;
 
-import Services.Storage.BucketsEnum;
 import Services.Storage.AmazonS3Service;
+import Services.Storage.BucketsEnum;
 import com.bitmovin.api.BitmovinApi;
 import com.bitmovin.api.encoding.codecConfigurations.AACAudioConfig;
 import com.bitmovin.api.encoding.codecConfigurations.H264VideoConfiguration;
@@ -12,7 +12,6 @@ import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -22,15 +21,17 @@ import java.util.Scanner;
  * A classe abaixo é responsável por criar e reutilizar as configurações
  * de encoding. Essas configurações são indispensáveis para realizar o encoding correto.
  *
- * A classe salva em um arquivo, os Identificadores dos objetos de configuração.
- * Esses objetos de configuração são mantidos pela API da bitmovin, essa classe só possui
+ * A classe salva em um arquivo os Identificadores dos objetos de configuração.
+ * Os objetos de configuração são mantidos pela API da bitmovin. Essa classe só possui
  * a reponsabilidade de manter registro das configurações que já foram criadas, evitando que
- * sejam utilizados recursos desnecessários da API bitmovin.
+ * eles sejam recriados sem necessidade.
+ * Dessa forma, é evitada a utilização desnecessária dos recursos da API bitmovin.
  *
+ * Funcionamento:
  * A classe salva em um arquivo os Ids.
- * Quando instanciada, ela tenta buscar esses ids, em caso de falha, ela cria os objetos
- * de configuração, por meio do acesso com a API bitmovin, e depois guarda os dados no arquivo
- * para ser usado posteriormente.
+ * Quando instanciada, ela tenta buscar esses ids, em caso de falha, ela recria os objetos
+ * de configuração, por meio do acesso com a API bitmovin, e depois guarda os IDS no arquivo
+ * para serem usados posteriormente.
  */
 
 

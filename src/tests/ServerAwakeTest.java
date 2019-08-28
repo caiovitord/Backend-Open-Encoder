@@ -1,5 +1,4 @@
 import REST.Application;
-import REST.Controllers.VideoEncodingRequestController;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;

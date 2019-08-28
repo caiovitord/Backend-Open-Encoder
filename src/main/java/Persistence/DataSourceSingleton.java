@@ -6,8 +6,8 @@ import javax.persistence.Persistence;
 
 
 /**
-* Essa classe, que implementa o Design Pattern Singleton, serve
-* para fornecer uma referência da classe EntityManger,  bem como configurar
+* Essa classe, que implementa o Design Pattern Singleton,
+ * serve para fornecer uma referência da classe EntityManger,  bem como configurar
 * a API de persistência JPA .
 *
 * O EntityManger é uma classe da JPA, e fornece acesso direto

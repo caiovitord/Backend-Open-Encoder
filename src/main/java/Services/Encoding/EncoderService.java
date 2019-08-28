@@ -1,5 +1,6 @@
 package Services.Encoding;
 
+import Configuration.AppConfiguration;
 import Persistence.DAO.VideoEncodingRequestDAO;
 import Persistence.DataSourceSingleton;
 import Persistence.Entities.VideoEncodingRequest;
@@ -30,7 +31,9 @@ import java.util.ArrayList;
  * Classe que acessa o serviço de encoding da BITMOVIN
  *
  * Os seus métodos acessam a API Bitmovin e é responsável por construir todos os inputs, outputs,
- * objetos de streaming e muxin de video e audio bem como requisitar o processo de encoding em si.
+ * objetos de streaming e muxin de video e audio.
+ *
+ * A classe também  cria requisições para BITMOVIN inciar o processo de encoding em si.
  *
  * Além disso, a classe possui um método para retornar o progresso
  * atual de um encoding em execução.
@@ -48,7 +51,7 @@ public class EncoderService {
 
     private final ArrayList<AclEntry> aclEntries;
 
-    private final String BITMOVIN_API_KEY = "91e8346c-a81c-4f09-b5cc-3b246f80e87d";
+    private final String BITMOVIN_API_KEY = AppConfiguration.BITMOVIN_API_KEY;
 
     private final VideoEncodingRequestDAO videoEncodingRequestDAO = new VideoEncodingRequestDAO(DataSourceSingleton.getInstance().getEntityManager());
 

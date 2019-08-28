@@ -5,10 +5,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
-*
-*
-* Essa é a Classe genérica de acesso ao banco de dados
-* que é responsável por executar as operações de CRUD nos objetos.
+* Essa é a Classe genérica de acesso ao banco de dados.
+* Ela é responsável por executar as operações de CRUD nos objetos.
 *
 * DAO ( Data Access Object ou Objeto de acesso a dados ) é uma Design Pattern.
 *
@@ -22,8 +20,8 @@ import java.util.List;
 * e também na classe Persistence.DataSourceSingleton
 *
 * A utilização da Java Persistence API junto com o ObecjtDB é interessante para uma aplicação simples
-* pois o ObjectDB provém uma solução livre de tabelas e esquemas, sendo assim, uma solução mais
-* prática para aplicações que não seja imprescindível implementar os princípios A.C.I.D.
+* pois o ObjectDB provém uma solução livre de tabelas e esquemas, sendo assim, uma implementação mais
+* prática e agil para aplicações que não seja imprescindível implementar os princípios A.C.I.D.
 *
  */
 

@@ -1,15 +1,16 @@
 package Services.Storage;
 
+import Configuration.AppConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+
 import java.io.File;
 
 /**
@@ -25,12 +26,12 @@ public class AmazonS3Service {
 
     private final AmazonS3 s3client;
 
-    public static final String AWS_INPUT_BUCKET_NAME = "open-encoder-input";
-    public static final String AWS_OUTPUT_BUCKET_NAME = "open-encoder-output";
+    static final String AWS_INPUT_BUCKET_NAME = AppConfiguration.AWS_INPUT_BUCKET_NAME;
+    static final String AWS_OUTPUT_BUCKET_NAME = AppConfiguration.AWS_OUTPUT_BUCKET_NAME;
 
 
-    public static final String AWS_ACCESS_KEY = "AKIAX4GJZQVTXHFJZVOI";
-    public static final String AWS_SECRET = "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";
+    static final String AWS_ACCESS_KEY = AppConfiguration.AWS_ACCESS_KEY;
+    static final String AWS_SECRET = AppConfiguration.AWS_SECRET;
 
     private AmazonS3Service(){
 

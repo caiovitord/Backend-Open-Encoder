@@ -1,4 +1,4 @@
-package REST;
+package Configuration;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

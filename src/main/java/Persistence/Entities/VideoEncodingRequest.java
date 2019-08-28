@@ -4,13 +4,12 @@ import Services.Encoding.VideoConfigurationEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.sql.Date;
 
 
 /**
-* Classe de entidade.
-* Esta Classse guarda todos os dados necessários para buscar os vídeos após o encoding.
+* Esta Classse guarda todos os dados necessários para realizar o RETRIEVE dos dados da requisição
+ * de um Encoding
 * */
 @Entity
 public class VideoEncodingRequest {

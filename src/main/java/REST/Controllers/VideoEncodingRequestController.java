@@ -1,13 +1,11 @@
 package REST.Controllers;
 
-import REST.Repositories.VideoEncodingRequestRepository;
-import Services.Encoding.VideoConfigurationEnum;
-import Services.Storage.BucketsEnum;
-import Persistence.DAO.VideoEncodingRequestDAO;
-import Persistence.DataSourceSingleton;
 import Persistence.Entities.VideoEncodingRequest;
-import Services.Storage.AmazonS3Service;
+import REST.Repositories.VideoEncodingRequestRepository;
 import Services.Encoding.EncoderService;
+import Services.Encoding.VideoConfigurationEnum;
+import Services.Storage.AmazonS3Service;
+import Services.Storage.BucketsEnum;
 import com.bitmovin.api.encoding.status.Task;
 import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.bitmovin.api.http.RestException;
@@ -15,7 +13,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -25,10 +22,9 @@ import java.util.Optional;
 
 
 /**
- * Essa classe é um controller Spring.
- * Ela é responsável por criar os endpoints de encoding da API.
+ * Classe responsável por criar os endpoints de encoding da API REST.
  *
- * Os seus métodos (mapeados em endpoints da API) são responsáveis por
+ * Os seus métodos (mapeados em endpoints) são responsáveis por
  * criar uma nova requisição de encoding baseado no nome do arquivo,
  * obter informações sobre um encoding, bem como solicitar a geração do arquivo
  * manifest e deletar um encoding.
@@ -49,7 +45,7 @@ public class VideoEncodingRequestController {
     public VideoEncodingRequestController() throws IOException {
     }
 
-
+    //Método que cria requisição de encoding baseado no nome do arquivo e na qualidade do encoding desejada
     @PostMapping("/api/v1/encodings")
     ResponseEntity createEncoding(@RequestBody Map<String, Object> payload) {
         System.out.println("POST /encodings " + payload.get("fileName").toString() + " " +  payload.get("encodingQuality").toString());
@@ -72,6 +68,8 @@ public class VideoEncodingRequestController {
         else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
+
+    //Método que cria retorna o encoding por meio do encodingId
     @GetMapping("/api/v1/encodings/{encodingId}")
     ResponseEntity<VideoEncodingRequest> getEncodingById(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("GET /encodings/{id} " + encodingId);
@@ -82,6 +80,7 @@ public class VideoEncodingRequestController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    //Método que retorna o status do encoding
     @GetMapping("/api/v1/encodings/{encodingId}/status")
     ResponseEntity<Task> getEncodingStatus(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("GET /encodings/{id}/status " + encodingId);
@@ -94,6 +93,7 @@ public class VideoEncodingRequestController {
         else return ResponseEntity.notFound().build();
     }
 
+    //Método que retorna o link  do resultado do encoding
     @GetMapping("/api/v1/encodings/{encodingId}/link")
     ResponseEntity<String> getEncodingLink(@PathVariable String encodingId){
         System.out.println("GET /encodings/{id} " + encodingId);
@@ -105,6 +105,7 @@ public class VideoEncodingRequestController {
     }
 
 
+    //Método que solicita a criação do arquivo manifest e finaliza o processo de encoding
     @PostMapping("/api/v1/encodings/{encodingId}/manifest")
     ResponseEntity<String> createEncodingManifest(@PathVariable String encodingId) throws BitmovinApiException, RestException, UnirestException, IOException, URISyntaxException {
         System.out.println("POST /api/v1/encodings/{id}/manifest " + encodingId);
@@ -120,7 +121,7 @@ public class VideoEncodingRequestController {
         } else return ResponseEntity.notFound().build();
     }
 
-
+    //Método que deleta um encodingRequest pelo id
     @DeleteMapping("/api/v1/encodings/{encodingId}")
     ResponseEntity deleteEncodingById(@PathVariable String encodingId) {
         System.out.println("DELETE /api/v1/encodings/{id} " + encodingId);
