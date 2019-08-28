@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: REST.Main
+Main-Class: REST.Application
 Class-Path: aws-java-sdk-managedblockchain-1.11.617.jar aws-java-sdk-med
  iastore-1.11.617.jar aws-java-sdk-workspaces-1.11.617.jar aws-java-sdk-
  stepfunctions-1.11.617.jar json-schema-core-1.2.8.jar aws-java-sdk-appl

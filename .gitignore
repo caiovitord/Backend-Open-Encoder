@@ -27,9 +27,8 @@ hs_err_pid*
 target/classes/application.properties
 target/classes/META-INF/BackendSambatechEncoding.kotlin_module
 
-database_file.odb
-database_file.odb$
+*.odb
+*.odb$
 /target/
 /out/
-server_database.odb$
-server_database.odb
+
