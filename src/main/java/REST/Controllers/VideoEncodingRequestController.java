@@ -12,8 +12,10 @@ import com.bitmovin.api.encoding.status.Task;
 import com.bitmovin.api.exceptions.BitmovinApiException;
 import com.bitmovin.api.http.RestException;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -40,7 +42,9 @@ public class VideoEncodingRequestController {
 
     private final AmazonS3Service amazonS3Service = AmazonS3Service.getInstance();
     private final EncoderService encoderService = new EncoderService();
-    private final VideoEncodingRequestRepository repository = new VideoEncodingRequestRepository();
+
+    @Autowired
+    private VideoEncodingRequestRepository repository;
 
     public VideoEncodingRequestController() throws IOException {
     }
