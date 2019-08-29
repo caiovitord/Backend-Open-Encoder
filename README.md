@@ -106,6 +106,8 @@ Pelo que testei, o navegador **Microsoft Edge** toca o vídeo com o link direto 
 Caso o seu navegador esteja fazendo o download do arquivo ao invés de toca-lo, você pode utilizar o **Player da Bitmovin**:
 Entre no [player de testes da Bitmovin](https://bitmovin.com/demos/stream-test), **no menu lateral direito, em "Stream" marque a opção HLS**, insira o seu link gerado e clique em **Load settings** para tocar o seu vídeo.
 
+Exemplo de link de vídeo HLS: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8
+
 #### No [front-end](https://caiovitor.com/open-encoder) da aplicação, existe um player HLS pronto para tocar os seus vídeos convertidos. Não deixe de conferir!
 #
 #### 1.5 - (Opcional) Obtenha o link novamente
@@ -141,7 +143,7 @@ Exemplo: "Hello! I'm awake! I've been working since Thu Aug 29 00:59:13 UTC 2019
 
 **Descrição**: Endpoint para enviar um arquivo que servirá de **input** para o processo de encoding.
 
-**Parâmetros**: **Atenção!**. O arquivo deve ser enviado necessariamente por meio de **form-data**, com o encoding **multipart/form-data.**.
+**Parâmetros**: **Atenção!** O arquivo deve ser enviado necessariamente por meio de **form-data**, com o encoding **multipart/form-data.**.
 
 
 **Retorna**: 
@@ -158,13 +160,13 @@ Status code 200.
 **Parâmetros**: Os parâmetros 1 e 2 descritos abaixo devem ser enviados por meio de **Content-Type: application/json**.
 
 
-Parâmetro 1 - **fileName** - Tipo: String - Descrição: Nome do arquivo input no bucket AWS (fornecido pelo endpoint 3)
+Parâmetro 1 - **fileName** - Tipo: String - Descrição: Nome do arquivo de input no bucket AWS (fornecido pelo endpoint 3)
 
 
 Parâmetro 2 - **encodingQuality** - Tipo: String (ENUMERADO) 
 
 
-Descrição: Os valores aceitos para o parametro de qualidade do encoding são uma das 3 Strings: LOW MEDIUM HIGH
+Descrição: Os valores aceitos para o parâmetro de qualidade do encoding são uma das 3 Strings: LOW MEDIUM HIGH
 
 **Retorna**: 
 Status code 404, caso não exista o arquivo de input  
@@ -188,16 +190,24 @@ Exemplo:
 
 ### 5 - GET   api/v1/encodings/{encodingId}
 
-**Descrição**: Endpoint para obter o objeto VideoEncodingRequest. Não necessariamente precisa ser utilizada no processo de solicitação de encoding, pois o endpoint 4 já retorna o objeto VideoEncodingRequest.
-**Parâmetros**: Os parametros 1 e 2 descritos abaixo devem ser enviados por meio de **Content-Type: application/json**
-Parâmetro 1 - **fileName** - Tipo: String - Descrição: Nome do arquivo input no bucket AWS (fornecido pelo endpoint 3)
-Parâmetro 2 - **encodingQuality** - Tipo: String (ENUMERADO) - Descrição: Os valores  
-Parâmetro 3 - **encodingId** deve ser enviado por meio da URL da requisição
+**Descrição**: Endpoint para obter o objeto VideoEncodingRequest. Não necessariamente precisa ser utilizada no processo de solicitação de encoding, pois o endpoint 4 já retorna o objeto VideoEncodingRequest.  
+
+
+**Parâmetros**: Os parametros 1 e 2 descritos abaixo devem ser enviados por meio de **Content-Type: application/json**.  
+
+Parâmetro 1 - **fileName** - Tipo: String - Descrição: Nome do arquivo input no bucket AWS (fornecido pelo endpoint 3)  
+
+Parâmetro 2 - **encodingQuality** - Tipo: String (ENUMERADO). Descrição: Os valores aceitos para o parâmetro de qualidade do encoding são uma das 3 Strings: LOW MEDIUM HIGH  
+
+Parâmetro 3 - **encodingId** deve ser enviado por meio da URL da requisição  
+
 
 
 **Retorna**: 
-Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
-Status code 200, caso exista o objeto VideoEncodingRequest 
+Status code 404, caso não exista o objeto VideoEncodingRequest com este id.  
+
+Status code 200, caso exista o objeto VideoEncodingRequest  
+
 
 **Corpo da resposta**: JSON com o objeto VideoEncodingRequest
 Exemplo: 
@@ -216,14 +226,17 @@ Exemplo:
 
 ### 6 - GET   api/v1/encodings/{encodingId}/status
 
-**Descrição**: Endpoint para obter o **status** da requisição de vídeo
-**Parâmetros**: 
+**Descrição**: Endpoint para obter o **status** da requisição de vídeo  
+
+**Parâmetros**:  
+
 Parâmetro 1 - **encodingId** deve ser enviado por meio da URL da requisição
 
 
 **Retorna**: 
-Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
-Status code 200, caso exista o objeto encoding 
+Status code 404, caso não exista o objeto VideoEncodingRequest com este id.  
+
+Status code 200, caso exista o objeto encoding  
 
 Corpo da resposta: JSON com o objeto Status da requisição de vídeo
 Exemplo: 
@@ -240,43 +253,57 @@ Exemplo:
 ### 7 - POST   /api/v1/encodings/{encodingId}/manifest
 
 **Descrição**: Endpoint para solicitar a criação do arquivo **manifest** do vídeo. Esse arquivo é o output do encoding, o resultado.
-**Para que a criação do manifest não gere um erro na API Bitmovin, é necessário esperar o status do encoding ser** **FINISHED**. Verifique o status do encoding com o endpoint número 6
-**Este método deve ser utilizado após a finalização do encoding**
 
-**Parâmetros**: 
-Parâmetro 1 - **encodingId** deve ser enviado por meio da URL da requisição
+**Para que a criação do manifest não gere um erro na API Bitmovin, é necessário esperar o status do encoding ser** **FINISHED**. Verifique o status do encoding com o endpoint número 6  
+
+**Este método deve ser utilizado após a finalização do encoding**  
+
+**Parâmetros**:  
+
+Parâmetro 1 - **encodingId** deve ser enviado por meio da URL da requisição  
+
 
 **Retorna**: 
-Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
-Status code 200, caso exista o objeto encoding 
+Status code 404, caso não exista o objeto VideoEncodingRequest com este id.  
 
-Corpo da resposta: Um link de output do encoding finalizado:
+Status code 200, caso exista o objeto encoding  
 
-Exemplo: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8
+
+Corpo da resposta: Um link de output do encoding finalizado:  
+
+Exemplo: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8  
 
 ### 8 - GET   /api/v1/encodings/{encodingId}/link
 
-**Descrição**: Endpoint para obter o link do arquivo de output do encoding finalizado.
+**Descrição**: Endpoint para obter o link do arquivo de output do encoding finalizado.  
+
 **Parâmetros**: 
-Parâmetro 1 - **encodingId** deve ser enviado por meio da URL da requisição
+Parâmetro 1 - **encodingId** deve ser enviado por meio da URL da requisição  
 
 **Retorna**: 
-Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
+Status code 404, caso não exista o objeto VideoEncodingRequest com este id.  
+
 Status code 200, caso exista o objeto encoding 
 
-Corpo da resposta: Um link de output do encoding finalizado:
+Corpo da resposta: Um link de output do encoding finalizado:  
+
 
 Exemplo: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8
 
 ### 9 - DELETE   /api/v1/encodings/{encodingId}
 
-**Descrição**: Endpoint para deletar o objeto de requisição de vídeo da base de dados.
-**Parâmetros**: 
+**Descrição**: Endpoint para deletar o objeto de requisição de encoding vídeo da base de dados.  
+
+**Parâmetros**:  
+
 Parâmetro 1 - **encodingId** deve ser enviado por meio da URL da requisição
 
-**Retorna**: 
-Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
-Status code 204, caso exista o objeto encoding e ele foi deletado
+**Retorna**:  
+
+Status code 404, caso não exista o objeto VideoEncodingRequest com este id.  
+
+Status code 204 (No content), caso exista o objeto encoding e ele foi deletado  
+
 Corpo da resposta vazio
 
 
@@ -334,12 +361,12 @@ public class AppConfiguration {
 ```
 Agora basta fazer o seguinte:
 - #####  1 - Altere nomes dos buckets de entrada e saída
-- #####  2 - Altere as chaves da API de armazenamento (AWS S3 Buckets)
+- #####  2 - Altere as chaves da API de armazenamento
 - #####  3 - Altere a chave da API Bitmovin
 
 Simples assim! O seu projeto está pronto para ser compilado e testado.
 ## 4 - Compilar
-Com todas as APIs configuradas, você pode compilar o seu projeto. Utilize o seguinte comando Maven na pasta raiz do projeto:
+Com todas as APIs configuradas, você pode compilar o seu código. Utilize o seguinte comando Maven na pasta raiz do projeto:
 ```sh
 mvn clean install
 ```
@@ -355,7 +382,8 @@ mvn test
 ## 5 - Executar o servidor
 ### 5.1 - Executar utilizando Docker
 O docker é a forma mais prática de criar uma instância do seu servidor. 
-O docker cria um *container* para a sua aplicação rodar isoladamente, facilitando assim o gerenciamento e o *deploy* da sua aplicação.
+O docker cria um *container* para a sua aplicação executar isoladamente, facilitando assim o gerenciamento e o *deploy* da sua aplicação.  
+
 Saiba mais sobre o docker com os seguintes links:
  - [Tutorial oficial de como instalar o Docker no Windows ](https://docs.docker.com/docker-for-windows/install/)
  - [Tutorial oficial de como instalar o Docker no Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
@@ -378,14 +406,14 @@ Após finalizar o **build**, você já pode criar um **container** que executa o
 
 Para isso, rode o seguinte comando. Observe que você pode optar por alterar a porta de serviço do servidor.
 ```sh
-##Configurando o servidor para executar na porta 8080
+#Configurando o servidor para executar na porta 8080
 docker run -p 8080:8080 my-open-encoder
 
-##Configurando o servidor para executar na porta 8123
+#Configurando o servidor para executar na porta 8123
 docker run -p 8123:8080 my-open-encoder
 ```
 Após rodar o comando acima, o console irá te mostrar o output da aplicação em funcionamento. 
-#### Pronto! O seu servidor já está sendo executado veja abaixo como verificar se o servidor está acessível na porta indicada.
+#### Pronto! O seu servidor já está sendo executado veja abaixo como verificar se o servidor está acessível na porta selecionada.
 ####
 Caso você não esteja familiarizado com o docker, não deixe de conferir os links acima para saber como gerenciar as suas aplicações (containers).
 
