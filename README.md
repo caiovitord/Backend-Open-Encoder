@@ -125,7 +125,7 @@ Após já ter requisitado a criação do manifest no passo anterior, se você qu
 **Retorna**: 
 Status code 200.
 
-Exatamente esta mensagem no corpo de resposta: "Hello I`m here";
+Exatamente esta mensagem no **corpo de resposta**: "Hello I`m here";
 
 ### 2 - GET   /api/v1
 
@@ -238,7 +238,7 @@ Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
 
 Status code 200, caso exista o objeto encoding  
 
-Corpo da resposta: JSON com o objeto Status da requisição de vídeo
+**Corpo da resposta**: JSON com o objeto Status da requisição de vídeo
 Exemplo: 
 ```sh
 {
@@ -263,13 +263,14 @@ Exemplo:
 Parâmetro 1 - **encodingId** deve ser enviado por meio da URL da requisição  
 
 
-**Retorna**: 
+**Retorna**:  
+
 Status code 404, caso não exista o objeto VideoEncodingRequest com este id.  
 
 Status code 200, caso exista o objeto encoding  
 
 
-Corpo da resposta: Um link de output do encoding finalizado:  
+**Corpo da resposta**: Um link de output do encoding finalizado:  
 
 Exemplo: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8  
 
@@ -285,7 +286,7 @@ Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
 
 Status code 200, caso exista o objeto encoding 
 
-Corpo da resposta: Um link de output do encoding finalizado:  
+**Corpo da resposta**: Um link de output do encoding finalizado:  
 
 
 Exemplo: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8
@@ -304,7 +305,7 @@ Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
 
 Status code 204 (No content), caso exista o objeto encoding e ele foi deletado  
 
-Corpo da resposta vazio
+**Corpo da resposta vazio**
 
 
 # Como executar a sua própria instância da API 
