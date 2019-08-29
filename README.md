@@ -262,12 +262,12 @@ Siga as instruções contidas nos tutoriais para configurar o seu sistema.
 - [Como instalar o Maven no Ubuntu](https://medium.com/@andgomes/instalando-o-apache-maven-no-ubuntu-de4a95a5975a)
 
 Atenção na configuração das variáveis de ambiente para que o Maven funcione corretamente.
-## 2 - Clonando o projeto
+## 2 - Clonar o projeto
 Com o ambiente de desenvolvimento configurado, faça o download deste projeto.
 Abra a pasta raiz do projeto com a sua IDE preferida.
 ##### Recomendo que seja utilizado o ambiente IntelliJ IDEA
 
-## 2 - Configurar as APIs
+## 3 - Configurar as APIs
 O primeiro passo para configurar a sua aplicação é inserir as suas **chaves de acesso** aos serviços necessários.
 #####
 O Open Encoder funciona com a seguinte infraestrutura:
@@ -309,7 +309,7 @@ Agora basta fazer o seguinte:
 - #####  3 - Altere a chave da API Bitmovin
 
 Simples assim! O seu projeto está pronto para ser compilado e testado.
-## 3 - Compilar
+## 4 - Compilar
 Com todas as APIs configuradas, você pode compilar o seu projeto. Utilize o seguinte comando Maven na pasta raiz do projeto:
 ```sh
 mvn clean install
@@ -323,8 +323,8 @@ Para executar os testes, utilize o seguinte comando Maven na pasta raiz do proje
 ```sh
 mvn test
 ```
-## 4 - Executar o servidor
-### 4.1 - Executar utilizando Docker
+## 5 - Executar o servidor
+### 5.1 - Executar utilizando Docker
 O docker é a forma mais prática de criar uma instância do seu servidor. 
 O docker cria um *container* para a sua aplicação rodar isoladamente, facilitando assim o gerenciamento e o *deploy* da sua aplicação.
 Saiba mais sobre o docker com os seguintes links:
@@ -361,7 +361,7 @@ Após rodar o comando acima, o console irá te mostrar o output da aplicação e
 Caso você não esteja familiarizado com o docker, não deixe de conferir os links acima para saber como gerenciar as suas aplicações (containers).
 
 #
-### 4.2 - Executar do modo tradicional
+### 5.2 - Executar do modo tradicional
 Para executar do modo tradicional, acesse a pasta */target* que se encontra na raiz do projeto.
 Essa pasta só é criada após o projeto ser compilado com  *mvn clean install*.
 
@@ -373,7 +373,7 @@ java -jar Backend-Sambatech-Encoding-1.0.jar
 ```
 O seu aplicativo deverá começar a executar. O console irá te mostrar o output da aplicação em funcionamento. 
 
-## 5 - Verificar o funcionamento do servidor
+## 6 - Verificar o funcionamento do servidor
 
 Agora que sua aplicação já está rodando, você deve verificar se ela está funcionando.
 No seu navegador preferido, acesse o link da aplicação por meio do IP local ou domínio.
