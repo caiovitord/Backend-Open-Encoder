@@ -152,16 +152,25 @@ Status code 200.
 
 ### 4 - POST   api/v1/encodings
 
-**Descrição**: Endpoint para solicitar que o processo de encoding comece. Ele realiza uma requisição para a API **Bitmovin**, fornecendo o input inserido no endpoint 3 (acima).
-**Parâmetros**: Os parâmetros 1 e 2 descritos abaixo devem ser enviados por meio de **Content-Type: application/json**
+**Descrição**: Endpoint para solicitar que o processo de encoding comece. Ele realiza, de maneira transparente, uma requisição para a API **Bitmovin**. É necessário fornecer o nome do arquivo de input enviado no endpoint 3 (acima).
+
+
+**Parâmetros**: Os parâmetros 1 e 2 descritos abaixo devem ser enviados por meio de **Content-Type: application/json**.
+
+
 Parâmetro 1 - **fileName** - Tipo: String - Descrição: Nome do arquivo input no bucket AWS (fornecido pelo endpoint 3)
+
+
 Parâmetro 2 - **encodingQuality** - Tipo: String (ENUMERADO) 
+
+
 Descrição: Os valores aceitos para o parametro de qualidade do encoding são uma das 3 Strings: LOW MEDIUM HIGH
 
 **Retorna**: 
 Status code 404, caso não exista o arquivo de input
+&nbsp;
 Status code 200, caso exista o arquivo de input
-
+&nbsp;
 **Corpo da resposta**: JSON com o objeto VideoEncodingRequest
 Exemplo: 
 ```sh
