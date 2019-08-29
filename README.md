@@ -5,8 +5,7 @@
 ## Sobre a aplicação
 O Open-Encoder é uma aplicação criada com o intuito de ser uma plataforma aberta de encoding de vídeos. 
 
-A aplicação tem uma funcionalidade objetiva e simples: conversão de arquivos de vídeo de um formato **não compatível** com
-os padrões da web, para um formato que seja **compatível** com os padrões da web. 
+A aplicação tem a funcionalidade de converter arquivos de vídeo de um formato **não compatível** com os padrões da web para um formato que seja **compatível** com os padrões da web. 
 Dessa forma, ao converter o seu vídeo para dentro dos padrões da web, você poderá, por meio do link fornecido pela API, tocar o seu vídeo em **qualquer dispositivo** que possua um navegador Web. 
 
 A proposta da aplicação foi feita pela empresa Sambatech.
