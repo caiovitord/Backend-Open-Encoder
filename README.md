@@ -167,10 +167,10 @@ Parâmetro 2 - **encodingQuality** - Tipo: String (ENUMERADO)
 Descrição: Os valores aceitos para o parametro de qualidade do encoding são uma das 3 Strings: LOW MEDIUM HIGH
 
 **Retorna**: 
-Status code 404, caso não exista o arquivo de input
-&nbsp;
-Status code 200, caso exista o arquivo de input
-&nbsp;
+Status code 404, caso não exista o arquivo de input  
+
+Status code 200, caso exista o arquivo de input  
+
 **Corpo da resposta**: JSON com o objeto VideoEncodingRequest
 Exemplo: 
 ```sh
