@@ -23,3 +23,13 @@
 hs_err_pid*
 /BackendSambatechEncoding.iml
 /.idea/
+/tmpfiles/
+target/classes/application.properties
+target/classes/META-INF/BackendSambatechEncoding.kotlin_module
+
+*.odb
+*.odb$
+/target/
+/out/
+
+open-encoder.pfx
