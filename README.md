@@ -21,13 +21,6 @@ A proposta da aplicação foi feita pela empresa Sambatech.
   * [Link da documentação interativa Swagger-UI da API ](https://api.open-encoder.caiovitor.com:8080/swagger-ui.html)
 * ##### Conteinerização da aplicação por meio de **Docker** tanto no front-end como no back-end;
 * ##### Testes de integração automatizados. Ideal para rapidamente criar o seu próprio *deploy* da aplicação
-#
-#
-#
-#
-
-
-
 
 # Maneiras de utilizar a API
 ### 1 - Utilizando a aplicação front-end
@@ -42,16 +35,19 @@ Para acessar a documentação interativa, use o link: [Documentação interativa
 O **Postman** é o software recomendado para poder testar a API do Open-Encoder.
 Se você deseja rapidamente poder testar todos os endpoints com o postman, faça a importação da **Coleção de Requisições**  da API Open-Encoder. 
 
-A coleção de requisições pode ser importada no Postman utilizando o arquivo **Open-Encoder-API-REST.postman_collection.json**.
+A coleção de requisições pode ser importada no Postman utilizando o arquivo 
+**Open-Encoder-API-REST.postman_collection.json**.
 O arquivo se encontra na **pasta raiz do projeto.**
 
 
 # Roteiro de utilizaçao da API
 Primeiramente, leia a lista completa de endpoints.
 Neste roteiro, será indicado o número do endpoint a ser utilizado na lista abaixo.
+
 #### 1.1 - Envie o seu arquivo 
 Para criar o arquivo de input do encoding de vídeo, utilize o endpoint número **3 - POST api/v1/files**
 Este endpoint retorna o nome do arquivo que se encontra no bucket S3, após ele ser enviado pelo usuario. Este nome de arquivo será utilizado como input para o próximo passo.
+#
 #### 1.2 - Solicite o encoding
 Com o nome do arquivo obtido no passo anterior. Crie uma requisição para o endpoint número **4 - POST api/v1/encodings**.
 Escolha a sua qualidade de vídeo (encodingQuality), ela pode ser:
@@ -75,7 +71,6 @@ Ao realizar a requisição do endpoint  **4 - POST api/v1/encodings** você obte
 ```
 ###### **O valor de encodingId será utilizado como parâmetro de todos os passos subsequentes**.
 #
-#
 #### 1.3 - Verifique o status do encoding
 Com o encodingId, execute o endpoint **5 - GET api/v1/encodings/{encodingId}**. O parâmetro encodingId deve ser enviado como no exemplo abaixo:
 
@@ -85,7 +80,6 @@ O retorno deste endpoint te informará se o seu encoding está em um dos seguint
 - Sendo processado (PROCESSING)
 - Finalizado o processo de encoding (FINISHED)
 ##### Você deve aguardar o retorno do status ser igual a "FINISHED" e só depois seguir para o próximo passo.
-#
 #
 #### 1.4 - Solicite a criação do arquivo manifest
 Após esperar alguns minutos para o encoding ser feito por completo. Você deve realizar a requisição em: 
@@ -228,6 +222,7 @@ Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
 Status code 200, caso exista o objeto encoding 
 
 Corpo da resposta: Um link de output do encoding finalizado:
+
 Exemplo: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8
 
 ### 8 - GET   /api/v1/encodings/{encodingId}/link
@@ -241,6 +236,7 @@ Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
 Status code 200, caso exista o objeto encoding 
 
 Corpo da resposta: Um link de output do encoding finalizado:
+
 Exemplo: https://open-encoder-output.s3.amazonaws.com/1567041559233/manifest.m3u8
 
 ### 9 - DELETE   /api/v1/encodings/{encodingId}
@@ -254,8 +250,7 @@ Status code 404, caso não exista o objeto VideoEncodingRequest com este id.
 Status code 204, caso exista o objeto encoding e ele foi deletado
 Corpo da resposta vazio
 
-#
-#
+
 # Como executar a sua própria instância da API 
 
 ## 1 - Configurar o ambiente
@@ -271,8 +266,7 @@ Atenção na configuração das variáveis de ambiente para que o Maven funcione
 Com o ambiente de desenvolvimento configurado, faça o download deste projeto.
 Abra a pasta raiz do projeto com a sua IDE preferida.
 ##### Recomendo que seja utilizado o ambiente IntelliJ IDEA
-#
-#
+
 ## 2 - Configurar as APIs
 O primeiro passo para configurar a sua aplicação é inserir as suas **chaves de acesso** aos serviços necessários.
 #####
@@ -321,10 +315,10 @@ Com todas as APIs configuradas, você pode compilar o seu projeto. Utilize o seg
 mvn clean install
 ```
 O primeiro build pode demorar alguns minutos, até que o Maven faça download de todas as bibliotecas.
-#
+
 #### Com o seu projeto compilado você pode executar os testes de integração automatizados. 
 ##### Essa é uma forma simples e automática de verificar se o seus buckets, usuário IAM e chaves da API bitmovin estão corretamente configurados.
-#
+
 Para executar os testes, utilize o seguinte comando Maven na pasta raiz do projeto:
 ```sh
 mvn test
@@ -362,7 +356,7 @@ docker run -p 8080:8080 my-open-encoder
 docker run -p 8123:8080 my-open-encoder
 ```
 Após rodar o comando acima, o console irá te mostrar o output da aplicação em funcionamento. 
-##### Pronto! O seu servidor já está sendo executado veja abaixo como verificar se o servidor está acessível na porta indicada.
+#### Pronto! O seu servidor já está sendo executado veja abaixo como verificar se o servidor está acessível na porta indicada.
 ####
 Caso você não esteja familiarizado com o docker, não deixe de conferir os links acima para saber como gerenciar as suas aplicações (containers).
 
