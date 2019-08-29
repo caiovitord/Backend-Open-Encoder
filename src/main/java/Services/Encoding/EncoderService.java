@@ -29,12 +29,12 @@ import java.util.ArrayList;
 
 /**
  * Classe que acessa o serviço de encoding da BITMOVIN
- *
+ * <p>
  * Os seus métodos acessam a API Bitmovin e é responsável por construir todos os inputs, outputs,
  * objetos de streaming e muxin de video e audio.
- *
+ * <p>
  * A classe também  cria requisições para BITMOVIN inciar o processo de encoding em si.
- *
+ * <p>
  * Além disso, a classe possui um método para retornar o progresso
  * atual de um encoding em execução.
  */
@@ -87,7 +87,7 @@ public class EncoderService {
 
     private long serverEncodingNumber = 0;
 
-    public VideoEncodingRequest encode(String inputFile, VideoConfigurationEnum encodingQuality) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
+    public VideoEncodingRequest encode(String inputFile, VideoConfigurationEnum encodingQuality, VideoEncodingRequest request) throws URISyntaxException, BitmovinApiException, UnirestException, IOException, RestException {
 
         String actualVideoConfigId = getConfigurationId(encodingQuality);
 
@@ -179,18 +179,18 @@ public class EncoderService {
 
 
         //Sallva o objeto de VideoEncodingRequest
-        VideoEncodingRequest request = new VideoEncodingRequest(
-                encoding.getId(),
-                outputPath,
-                audioStream.getId(),
-                fmpAudio4Muxing.getId(),
-                streamVideo.getId(),
-                videoMuxing.getId(),
-                false,
-                encodingQuality
-        );
 
-        videoEncodingRequestDAO.create(request);
+        request.setEncodingId(encoding.getId());
+        request.setOutputPath(outputPath);
+        request.setAudioStreamId(audioStream.getId());
+        request.setFmp4AudioMuxinId(fmpAudio4Muxing.getId());
+        request.setStreamVideoId(streamVideo.getId());
+        request.setVideoMuxinId(videoMuxing.getId());
+        request.setCreatedManifest(false);
+        request.setEncodingQuality(encodingQuality);
+
+
+        videoEncodingRequestDAO.update(request);
         return request;
     }
 
@@ -227,7 +227,7 @@ public class EncoderService {
         StreamInfo streamInfo = new StreamInfo();
         streamInfo.setAudio("audio_group");
         streamInfo.setClosedCaptions("NONE");
-        streamInfo.setSegmentPath("video/"+request.getEncodingQuality().resolution+"_"+request.getEncodingQuality().bitrate+"/fmp4");
+        streamInfo.setSegmentPath("video/" + request.getEncodingQuality().resolution + "_" + request.getEncodingQuality().bitrate + "/fmp4");
         streamInfo.setUri("video.m3u8");
         streamInfo.setEncodingId(request.getEncodingId());
         streamInfo.setStreamId(request.getStreamVideoId());

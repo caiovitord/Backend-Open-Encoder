@@ -83,4 +83,5 @@ public abstract class GenericDAO<E, K> {
         ).getSingleResult();
     }
 
+
 }

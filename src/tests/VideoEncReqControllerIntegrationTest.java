@@ -157,6 +157,21 @@ public class VideoEncReqControllerIntegrationTest {
                 .andExpect(status().is(404));
     }
 
+    //Esse teste verifica o retorno 404 quando a pessoa não enviou o arquivo previamente
+    @Test
+    public void g_whenTryCreateWrongEncoding_thenShouldReturnStatus404() throws Exception {
+        JSONObject obj = new JSONObject();
+        obj.put("fileName", "arquivoinexistente.mp4");
+        obj.put("encodingQuality", VideoConfigurationEnum.LOW.toString());
+
+        this.mockMvc.perform(
+                post("/api/v1/encodings")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(obj.toString()))
+                .andDo(print())
+                .andExpect(status().is(404));
+    }
+
 
 
 

@@ -29,14 +29,21 @@ public class VideoEncodingRequestRepository implements JpaRepository<VideoEncodi
 
     @Override
     public Optional<VideoEncodingRequest> findById(String s) {
-        return Optional.ofNullable(videoEncodingRequestDAO.find(s));
+        return Optional.ofNullable(videoEncodingRequestDAO.findByEncodingId(s));
     }
+
+    public Optional<VideoEncodingRequest> findByInputFileName(String fileName) {
+        return Optional.ofNullable(videoEncodingRequestDAO.findByInputFilename(fileName));
+    }
+
 
     @Override
     public <S extends VideoEncodingRequest> S save(S s) {
         videoEncodingRequestDAO.create(s);
         return s;
     }
+
+
 
     @Override
     public void delete(VideoEncodingRequest request) {

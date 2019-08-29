@@ -1,6 +1,11 @@
 package REST.Controllers;
 
+import Persistence.DAO.VideoEncodingRequestDAO;
+import Persistence.DataSourceSingleton;
+import Persistence.Entities.VideoEncodingRequest;
+import REST.Repositories.VideoEncodingRequestRepository;
 import Services.Storage.StorageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,16 +30,25 @@ public class FileUploadController {
 
     private final StorageService storageService = new StorageService();
 
+    @Autowired
+    private VideoEncodingRequestRepository videoEncodingRequestRepository;
+
     public FileUploadController() {
     }
 
 
     @PostMapping("/api/v1/files")
     public ResponseEntity<String> createFile(@RequestParam("file") MultipartFile file) {
+        String resultFileName = storageService.store(file);
+
+        VideoEncodingRequest request = new VideoEncodingRequest();
+        request.setInputFileName(resultFileName);
+
+        videoEncodingRequestRepository.save(request);
 
         return ResponseEntity
                 .ok().header("Content-Type"," text/html; charset=utf-8" )
-                .body( storageService.store(file));
+                .body(resultFileName);
     }
 
 }

@@ -23,12 +23,11 @@ import java.util.Optional;
 
 /**
  * Classe responsável por criar os endpoints de encoding da API REST.
- *
+ * <p>
  * Os seus métodos (mapeados em endpoints) são responsáveis por
  * criar uma nova requisição de encoding baseado no nome do arquivo,
  * obter informações sobre um encoding, bem como solicitar a geração do arquivo
  * manifest e deletar um encoding.
- *
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -48,24 +47,29 @@ public class VideoEncodingRequestController {
     //Método que cria requisição de encoding baseado no nome do arquivo e na qualidade do encoding desejada
     @PostMapping("/api/v1/encodings")
     ResponseEntity createEncoding(@RequestBody Map<String, Object> payload) {
-        System.out.println("POST /encodings " + payload.get("fileName").toString() + " " +  payload.get("encodingQuality").toString());
+        System.out.println("POST /encodings " + payload.get("fileName").toString() + " " + payload.get("encodingQuality").toString());
 
         String fileName = payload.get("fileName").toString();
         String encodingQualityStr = payload.get("encodingQuality").toString();
 
         VideoConfigurationEnum encodingQuality = VideoConfigurationEnum.valueOf(encodingQualityStr);
 
-        VideoEncodingRequest videoEncodingRequest;
-        try {
-            videoEncodingRequest = encoderService.encode(fileName, encodingQuality);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
 
-        if (videoEncodingRequest != null)
-            return ResponseEntity.ok().body(videoEncodingRequest);
-        else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        Optional<VideoEncodingRequest> videoEncodingRequest = repository.findByInputFileName(fileName);
+        if (videoEncodingRequest.isPresent()) {
+            try {
+                VideoEncodingRequest req = videoEncodingRequest.get();
+                encoderService.encode(fileName, encodingQuality, req);
+
+                return ResponseEntity.ok().body(req);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            }
+        }else
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+
     }
 
 
@@ -95,7 +99,7 @@ public class VideoEncodingRequestController {
 
     //Método que retorna o link  do resultado do encoding
     @GetMapping("/api/v1/encodings/{encodingId}/link")
-    ResponseEntity<String> getEncodingLink(@PathVariable String encodingId){
+    ResponseEntity<String> getEncodingLink(@PathVariable String encodingId) {
         System.out.println("GET /encodings/{id} " + encodingId);
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
@@ -134,10 +138,6 @@ public class VideoEncodingRequestController {
             return ResponseEntity.noContent().build();
         } else return ResponseEntity.notFound().build();
     }
-
-
-
-
 
 
 }

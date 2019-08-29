@@ -15,7 +15,12 @@ import java.sql.Date;
 public class VideoEncodingRequest {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+
     private String encodingId;
+
+    private String inputFileName;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -33,6 +38,8 @@ public class VideoEncodingRequest {
 
     @Enumerated(EnumType.STRING)
     private VideoConfigurationEnum encodingQuality;
+
+
 
     @NotNull
     private boolean createdManifest;
@@ -126,5 +133,14 @@ public class VideoEncodingRequest {
 
     public void setEncodingQuality(VideoConfigurationEnum encodingQuality) {
         this.encodingQuality = encodingQuality;
+    }
+
+
+    public String getInputFileName() {
+        return inputFileName;
+    }
+
+    public void setInputFileName(String inputFileName) {
+        this.inputFileName = inputFileName;
     }
 }

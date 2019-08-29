@@ -18,4 +18,24 @@ public class VideoEncodingRequestDAO extends GenericDAO<VideoEncodingRequest, St
     public VideoEncodingRequestDAO(EntityManager em) {
         super(em);
     }
+
+    public VideoEncodingRequest findByEncodingId(String encodingId){
+        try {
+            return (VideoEncodingRequest) em.createQuery(
+                    "select vr from VideoEncodingRequest vr where vr.encodingId = :encodingId"
+            ).setParameter("encodingId", encodingId).getSingleResult();
+        }catch (com.objectdb.o._NoResultException e){
+            return null;
+        }
+    }
+
+    public VideoEncodingRequest findByInputFilename(String fileName){
+        try {
+            return (VideoEncodingRequest) em.createQuery(
+                    "select vr from VideoEncodingRequest vr where vr.inputFileName = :fileName"
+            ).setParameter("fileName", fileName).getSingleResult();
+        }catch (com.objectdb.o._NoResultException e){
+            return null;
+        }
+    }
 }
