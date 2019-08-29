@@ -1,7 +1,5 @@
 package REST.Controllers;
 
-import Persistence.DAO.VideoEncodingRequestDAO;
-import Persistence.DataSourceSingleton;
 import Persistence.Entities.VideoEncodingRequest;
 import REST.Repositories.VideoEncodingRequestRepository;
 import Services.Storage.StorageService;

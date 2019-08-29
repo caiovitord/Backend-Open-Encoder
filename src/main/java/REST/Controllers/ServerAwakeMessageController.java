@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ServerAwakeMessageController {
 
     //Métodos que servem como verificação de funcionamento correto do servidor
-    @GetMapping("/api/v1/")
+    @GetMapping("/api/v1")
     public ResponseEntity<String> answerServerHelloAndAwakeTime() {
         return ResponseEntity
                 .ok().header("Content-Type"," text/html; charset=utf-8" )
