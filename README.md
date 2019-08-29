@@ -45,12 +45,18 @@ Neste roteiro, será indicado o número do endpoint a ser utilizado.
 Na lista completa de endpoints é descrito com detalhes cada parâmetro necessário para cada endpoint, e como ele deve ser enviado.
 
 #### 1.1 - Envie o seu arquivo 
-Para criar o arquivo de input do encoding de vídeo, utilize o endpoint número **3 - POST api/v1/files**
-Este endpoint retorna o nome do arquivo que se encontra no bucket S3, após ele ser enviado pelo usuario. Este nome de arquivo será utilizado como input para o próximo passo.
+Para criar o arquivo de **input** do encoding de vídeo, utilize o endpoint número **3 - POST api/v1/files**
+
+Após o arquio ser enviado, este endpoint retorna no corpo da requisição, o nome do arquivo que se encontra no bucket S3. 
+
+Este nome de arquivo será utilizado nos próximos passos do consumo da API, então salve o nome do arquivo fornecido pela requisição.
 #
 #### 1.2 - Solicite o encoding
 Com o nome do arquivo obtido no passo anterior. Crie uma requisição para o endpoint número **4 - POST api/v1/encodings**.
-Escolha a sua qualidade de vídeo (encodingQuality), ela pode ser:
+
+**Essa requisição irá solicitar que o servidor inicie o processo de encoding.**
+
+Para iniciar o processo de encoding, escolha a sua qualidade de vídeo (parâmetro encodingQuality).
  - Baixa: Valor do parâmetro **encodingQuality**: "LOW"
  - Média: Valor do parâmetro **encodingQuality**: "MEDIUM"
  - Alta: Valor do parâmetro **encodingQuality**: "HIGH"
@@ -60,7 +66,9 @@ Observe as especificações de cada qualidade de encoding:
  - MEDIUM: Tamanho do vídeo: 640px Bitrate: 750 Kbps
  - LOW: Tamanho do vídeo: 384px Bitrate: 375 Kbps
 
-O body da sua requisição deve ser um JSON contendo os dois parâmetros (fileName e encodingQuality).
+O corpo (body) da sua requisição deve ser um JSON contendo os dois parâmetros (**fileName** e **encodingQuality**).
+
+Observe que é necessário que a requisição seja feita com **Content-Type: application/json**.
 
 Ao realizar a requisição do endpoint  **4 - POST api/v1/encodings** você obterá uma resposta do tipo:
 ```sh
@@ -69,12 +77,15 @@ Ao realizar a requisição do endpoint  **4 - POST api/v1/encodings** você obte
     ....
 }
 ```
-###### **O valor de encodingId será utilizado como parâmetro de todos os passos subsequentes**.
-#
-#### 1.3 - Verifique o status do encoding
-Com o encodingId, execute o endpoint **5 - GET api/v1/encodings/{encodingId}**. O parâmetro encodingId deve ser enviado como no exemplo abaixo:
+###### **O valor de encodingId será utilizado como parâmetro de todos os passos subsequentes, então salve este dado**.
 
-GET api/v1/encodings/062f728c-a731-4c41-844e-fdb903abaa33
+Nesse ponto, o seu encoding já está sendo iniciado pela API bitmovin. Ele ficará alguns minutos na fila, e depois será devidamente processado.
+
+#
+#### 1.3 - Verifique o status do seu encoding
+Com o valor de **encodingId**, execute o endpoint **6 - GET api/v1/encodings/{encodingId}/status**. O parâmetro encodingId deve ser enviado pela URL como no exemplo abaixo:
+
+GET api/v1/encodings/062f728c-a731-4c41-844e-fdb903abaa33/status
 O retorno deste endpoint te informará se o seu encoding está em um dos seguintes status:
 - Na fila do encoding (QUEUED)
 - Sendo processado (PROCESSING)
@@ -85,14 +96,15 @@ O retorno deste endpoint te informará se o seu encoding está em um dos seguint
 Após esperar alguns minutos para o encoding ser feito por completo. Você deve realizar a requisição em: 
 **POST /api/v1/encodings/{encodingId}/manifest**
 
-O retorno desta requisição é um link para acessar o seu vídeo.
+O retorno desta requisição já é o link do arquivo manifest HLS para acessar o seu vídeo.
 
 **Atenção nesta parte!**
 Você pode ver o seu vídeo diretamente do navegador simplesmente colando o link na barra de endereço. Entretanto, **alguns navegadores podem optar equivocadamente por fazer download do arquivo, ao invés de toca-lo**. 
-Pelo que testei, o navegador **Microsoft Edge** toca o arquivo com o link direto, por outro lado, o navegador Google Chrome e Firefox fazem o download do arquivo ao invés de tocar.
 
-Caso o seu navegador esteja fazendo o download do arquivo ao invés de toca-lo, você pode utilizar o **player da Bitmovin**:
-Entre no [player de testes da Bitmovin](https://bitmovin.com/demos/stream-test), **marque a opção HLS**, insira o seu link gerado e clique em **Load settings** para tocar o seu vídeo.
+Pelo que testei, o navegador **Microsoft Edge** toca o vídeo com o link direto do arquivo manifest HLS, por outro lado, o navegador **Google Chrome** e **Firefox** fazem o download do arquivo ao invés de tocar.
+
+Caso o seu navegador esteja fazendo o download do arquivo ao invés de toca-lo, você pode utilizar o **Player da Bitmovin**:
+Entre no [player de testes da Bitmovin](https://bitmovin.com/demos/stream-test), **no menu lateral direito, em "Stream" marque a opção HLS**, insira o seu link gerado e clique em **Load settings** para tocar o seu vídeo.
 
 #### No [front-end](https://caiovitor.com/open-encoder) da aplicação, existe um player HLS pronto para tocar os seus vídeos convertidos. Não deixe de conferir!
 #
@@ -105,29 +117,37 @@ Após já ter requisitado a criação do manifest no passo anterior, se você qu
 ### 1 - GET   /
 
 **Descrição**: Endpoint para verificar se o servidor está respondendo requisições.
+
 **Parâmetros**: Nenhum
 
 **Retorna**: 
-Status code 200
+Status code 200.
+
 Exatamente esta mensagem no corpo de resposta: "Hello I`m here";
 
 ### 2 - GET   /api/v1
 
 **Descrição**: Endpoint para verificar se o servidor está respondendo requisições. Ele também informa quando a instância do servidor foi ligada.
+
 **Parâmetros**: Nenhum
 
 **Retorna**: 
-Status code 200
+Status code 200.
+
 Mensagem em texto com a data.
 Exemplo: "Hello! I'm awake! I've been working since Thu Aug 29 00:59:13 UTC 2019";
     
 ### 3 - POST   api/v1/files
 
-**Descrição**: Endpoint para enviar um arquivo para começar o processo de encoding.
-**Parâmetros**: Arquivo deve ser enviado necessariamente por meio de **form-data**, com o encoding **multipart/form-data.**
+**Descrição**: Endpoint para enviar um arquivo que servirá de **input** para o processo de encoding.
+
+**Parâmetros**: **Atenção!**. O arquivo deve ser enviado necessariamente por meio de **form-data**, com o encoding **multipart/form-data.**.
+
 
 **Retorna**: 
-Status code 200
+Status code 200.
+
+
 **Corpo da resposta**: Nome do arquivo de vídeo no bucket AWS. (Esse nome de arquivo será utilizado como INPUT em endpoints seguintes)
 
 ### 4 - POST   api/v1/encodings
