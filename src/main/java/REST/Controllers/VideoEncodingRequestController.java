@@ -104,7 +104,7 @@ public class VideoEncodingRequestController {
 
         Optional<VideoEncodingRequest> videoEncodingRequest = repository.findById((encodingId));
         if (videoEncodingRequest.isPresent())
-            return ResponseEntity.ok().body(amazonS3Service.getFileUrl(BucketsEnum.OUTPUT_BUCKET, encodingId));
+            return ResponseEntity.ok().body(amazonS3Service.getFileUrl(BucketsEnum.OUTPUT_BUCKET, videoEncodingRequest.get().getOutputPath()));
         else return ResponseEntity.notFound().build();
     }
 
