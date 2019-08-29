@@ -6,7 +6,7 @@
 O Open-Encoder é uma aplicação criada com o intuito de ser uma plataforma aberta de encoding de vídeos. 
 
 A aplicação tem a funcionalidade de converter arquivos de vídeo de um formato **não compatível** com os padrões da web para um formato que seja **compatível** com os padrões da web. 
-Dessa forma, ao converter o seu vídeo para dentro dos padrões da web, você poderá, por meio do link fornecido pela API, tocar o seu vídeo em **qualquer dispositivo** que possua um navegador Web. 
+Dessa forma, ao converter o seu vídeo, você receberá um link fornecido pela API,  então você pode tocar o seu vídeo em **qualquer dispositivo** que possua um navegador Web. 
 
 A proposta da aplicação foi feita pela empresa Sambatech.
 #### Link da API REST: https://api.open-encoder.caiovitor.com:8080/
@@ -14,8 +14,8 @@ A proposta da aplicação foi feita pela empresa Sambatech.
 ### Features
 * ### Aplicação front-end:
     * [Link do repositório no GitHub](https://github.com/caiovitord/Frontend-Open-Encoder)
-    * [Link do front-end online da aplicação](https://caiovitor.com/open-encoder/)
-* ##### Comunicação de **rede criptografada**, utilizando protocolo HTTPS tanto no front-end como no back-end;
+    * [Link do website do front-end da aplicação](https://caiovitor.com/open-encoder/)
+* ##### Implementações de segurança, como a comunicação em **rede criptografada**, utilizando protocolo HTTPS tanto no front-end como no back-end;
 * ##### Utilização das ferramentas de especificações da **OpenAPI** juntamente com **Swagger-UI**;
   * [Link da documentação interativa Swagger-UI da API ](https://api.open-encoder.caiovitor.com:8080/swagger-ui.html)
 * ##### Conteinerização da aplicação por meio de **Docker** tanto no front-end como no back-end;
@@ -23,13 +23,13 @@ A proposta da aplicação foi feita pela empresa Sambatech.
 
 # Maneiras de utilizar a API
 ### 1 - Utilizando a aplicação front-end
-Para testar a API da maneira mais intuitiva e descomplicada, acesse o link: https://caiovitor.com/open-encoder
-Somente no front-end você envia o seu vídeo e recebe um **link único** de compartilhamento com os amigos.
+Para testar a API da maneira mais intuitiva e descomplicada, acesse o link: https://caiovitor.com/open-encoder.
+Somente na aplicação do front-end você envia o seu vídeo e em seguida recebe um **link único** com acesso ao **Video Player do prórprio site**.
 
-Confira um link de compartilhamento de exemplo. Veja: [Link único de vídeo](https://caiovitor.com/open-encoder/#/video/1567041559233)
+Confira um link de exemplo. Veja: [Link único de vídeo](https://caiovitor.com/open-encoder/#/video/1567041559233)
 ### 2 - Utilizando a documentação interativa Swagger-UI 
 Para acessar a documentação interativa, use o link: [Documentação interativa Swagger-UI](https://api.open-encoder.caiovitor.com:8080/swagger-ui.html)
-### 3 - Utilizando software para realizar requisições HTTP
+### 3 - Utilizando outro software para realizar requisições HTTP
 
 O **Postman** é o software recomendado para poder testar a API do Open-Encoder.
 Se você deseja rapidamente poder testar todos os endpoints com o postman, faça a importação da **Coleção de Requisições**  da API Open-Encoder. 
@@ -40,8 +40,9 @@ O arquivo se encontra na **pasta raiz do projeto.**
 
 
 # Roteiro de utilizaçao da API
-Primeiramente, leia a lista completa de endpoints.
-Neste roteiro, será indicado o número do endpoint a ser utilizado na lista abaixo.
+Primeiramente, é importante ler lista completa de endpoints.
+Neste roteiro, será indicado o número do endpoint a ser utilizado.
+Na lista completa de endpoints é descrito com detalhes cada parâmetro necessário para cada endpoint, e como ele deve ser enviado.
 
 #### 1.1 - Envie o seu arquivo 
 Para criar o arquivo de input do encoding de vídeo, utilize o endpoint número **3 - POST api/v1/files**
